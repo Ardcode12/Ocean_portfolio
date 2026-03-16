@@ -21,7 +21,7 @@ const PROJECTS = [
     {
         id: 2,
         title: 'Mentro',
-        description: 'Full-stack e-commerce platform for marine equipment with AR product preview, real-time inventory, and secure payment integration.',
+        description: 'It is a mentorship platform that connects students with experienced mentors in their field of interest. The platform allows students to find and connect with exprienced mentors and also havethe career path guidence and the resume skill gap anatysis for the jobs and the DNA analysis that analyzw their skill and all the career path and the job reccomendation based on the skill and the intrest and also a portfolio builder .',
         tech: ['React-native', 'Python', 'PostgreSQL',],
         color: '#a855f7',
         links: { live: '#', code: '#' },
@@ -29,7 +29,7 @@ const PROJECTS = [
     {
         id: 3,
         title: 'Accident Auto Report',
-        description: 'Machine learning system that analyzes camera footage to detect accidents , track marine species, and predict ecosystem changes.',
+        description: 'Machine learning system that analyzes camera footage to detect accidents , track accident and Automatically call tha ambulance nearby and also have the volunteer system.',
         tech: ['React-native', 'Python', 'Tensorflow', 'Postgresql'],
         color: '#10b981',
         links: { live: '#', code: '#' },
@@ -37,7 +37,7 @@ const PROJECTS = [
     {
         id: 4,
         title: 'Surity Cart',
-        description: 'A E-commerce website that connect instagram influencers and reduce scams',
+        description: 'An e-commerce platform that connects brands and Instagram influencers in a secure and trusted environment. The platform is designed to reduce scams by verifying users and ensuring transparent transactions.It builds trust between influencers, sellers, and customers through secure communication and payment systems.',
         tech: ['React', 'Node.js', 'Mongo db',],
         color: '#f59e0b',   
         links: { live: '#', code: '#' },

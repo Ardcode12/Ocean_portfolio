@@ -227,13 +227,14 @@ function setupSectionAnimations() {
                 once: true,
                 onEnter: () => {
                     document.querySelectorAll('.stat-number').forEach((el) => {
-                        gsap.to(el, {
-                            innerText: parseInt(el.dataset.count),
+                        const target = parseInt(el.dataset.count);
+                        const counter = { val: 0 };
+                        gsap.to(counter, {
+                            val: target,
                             duration: 2,
-                            snap: { innerText: 1 },
                             ease: 'power2.out',
                             onUpdate() {
-                                el.textContent = Math.round(parseFloat(el.textContent));
+                                el.textContent = Math.round(counter.val) + '+';
                             },
                         });
                     });
