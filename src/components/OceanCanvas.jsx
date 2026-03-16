@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ACHIEVEMENT_FISH_POSITIONS } from './Achievements';
@@ -149,7 +150,10 @@ function OceanCanvas() {
         let waitingToSwitch = false;
 
         const clock = new THREE.Clock();
+        const dracoLoader = new DRACOLoader();
+        dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.7/');
         const loader = new GLTFLoader();
+        loader.setDRACOLoader(dracoLoader);
 
         function playAnimation(index) {
             if (!mixer || !animations[index]) {

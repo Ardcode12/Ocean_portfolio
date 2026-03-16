@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 
 // ╔═══════════════════════════════════════════════════════════════╗
 // ║  ★ CHRIST MODEL SETTINGS — Edit these to control the model   ║
@@ -117,7 +118,10 @@ function ChristModel() {
         // LOAD MODEL
         // ══════════════════════════════════════════════════════════════
 
+        const dracoLoader = new DRACOLoader();
+        dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.7/');
         const loader = new GLTFLoader();
+        loader.setDRACOLoader(dracoLoader);
         loader.load(
             '/glb_files/nanando_diver_-_underwater.glb',
             (gltf) => {

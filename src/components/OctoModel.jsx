@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 
 // ╔═══════════════════════════════════════════════════════════════╗
 // ║  ★ OCTO MODEL SETTINGS                                        ║
@@ -219,7 +220,10 @@ function OctoModel({ size = 680 }) {
         // LOAD MODEL
         // ══════════════════════════════════════════════════════════════
 
+        const dracoLoader = new DRACOLoader();
+        dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.7/');
         const loader = new GLTFLoader();
+        loader.setDRACOLoader(dracoLoader);
         loader.load(
             '/glb_files/octo.glb',
             (gltf) => {
