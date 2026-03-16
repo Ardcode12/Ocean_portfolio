@@ -52,10 +52,10 @@ function Contact() {
                         </form>
                     </div>
                     <div className="social-row">
-                        <a href="#" className="social-pill"><span>🐙</span> GitHub</a>
-                        <a href="#" className="social-pill"><span>💼</span> LinkedIn</a>
-                        <a href="#" className="social-pill"><span>🐦</span> Twitter</a>
-                        <a href="#" className="social-pill"><span>📧</span> Email</a>
+                        <a href="https://github.com/Ardcode12" className="social-pill"><span>🐙</span> GitHub</a>
+                        <a href="https://www.linkedin.com/in/arnald-s-381b2b336/" className="social-pill"><span>💼</span> LinkedIn</a>
+                        
+                        <a href="ardcode12@gmail.com" className="social-pill"><span>📧</span> Email</a>
                     </div>
                 </div>
             </div>

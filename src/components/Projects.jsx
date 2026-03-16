@@ -68,6 +68,10 @@ const PROJECT_MODELS = [
         floatSpeed: 0.8,               // ★ Float speed: 0.5=slow, 1.0=normal
         swayAmount: 0.15,              // ★ Side-to-side sway: 0=none, 0.15=subtle
         swaySpeed: 0.3,                // ★ Sway speed
+        // ★ MOBILE OVERRIDES (≤ 768px) — smaller, centered
+        mobileScale: 3.3,
+        mobileRotation: -Math.PI / 2 + 0.9,
+        mobilePosition: { x: 0.4, y: 0, z: 0 },
     },
     // ── PROJECT 2 MODEL ──
     {
@@ -80,6 +84,10 @@ const PROJECT_MODELS = [
         floatSpeed: 0.6,
         swayAmount: 0.1,
         swaySpeed: 0.25,
+        // ★ MOBILE OVERRIDES
+        mobileScale: 5,
+        mobileRotation: Math.PI / 2 - 0.8,
+        mobilePosition: { x: -0.6, y: -0.2, z: 0 },
     },
     // ── PROJECT 3 MODEL ──
     {
@@ -92,6 +100,10 @@ const PROJECT_MODELS = [
         floatSpeed: 0.7,
         swayAmount: 0.12,
         swaySpeed: 0.35,
+        // ★ MOBILE OVERRIDES
+        mobileScale: 4.7,
+        mobileRotation: -Math.PI / 2 + 0.8,
+        mobilePosition: { x: 0.35, y: 0, z: 0 },
     },
     // ── PROJECT 4 MODEL ──
     {
@@ -104,6 +116,10 @@ const PROJECT_MODELS = [
         floatSpeed: 0.5,
         swayAmount: 0.2,
         swaySpeed: 0.2,
+        // ★ MOBILE OVERRIDES
+        mobileScale: 4.3,
+        mobileRotation: Math.PI / 2 - 0.9,
+        mobilePosition: { x: -0.2, y: -0.3, z: 0 },
     },
     // ── PROJECT 5 MODEL ──
     {
@@ -116,6 +132,10 @@ const PROJECT_MODELS = [
         floatSpeed: 1.0,
         swayAmount: 0.1,
         swaySpeed: 0.4,
+        // ★ MOBILE OVERRIDES
+        mobileScale: 3.7,
+        mobileRotation: Math.PI,
+        mobilePosition: { x: 0.6, y: -0.7, z: 0 },
     },
 ];
 
@@ -176,23 +196,34 @@ function ProjectModel({ modelConfig, index }) {
             (gltf) => {
                 model = gltf.scene;
 
+                const isMobile = window.innerWidth <= 768;
+                
+                // Use mobile configs if available, otherwise fallback to desktop
+                const finalScale = (isMobile && config.mobileScale !== undefined) ? config.mobileScale : config.scale;
+                const finalPosition = (isMobile && config.mobilePosition !== undefined) ? config.mobilePosition : config.position;
+                const finalRotation = (isMobile && config.mobileRotation !== undefined) ? config.mobileRotation : config.rotation;
+
                 // Scale and center
                 const box = new THREE.Box3().setFromObject(model);
                 const size = box.getSize(new THREE.Vector3());
                 const center = box.getCenter(new THREE.Vector3());
                 const maxDim = Math.max(size.x, size.y, size.z);
-                const scale = config.scale / maxDim;
+                const scale = finalScale / maxDim;
 
                 model.scale.setScalar(scale);
 
-                baseY = -center.y * scale + config.position.y;
+                baseY = -center.y * scale + finalPosition.y;
 
                 model.position.set(
-                    -center.x * scale + config.position.x,
+                    -center.x * scale + finalPosition.x,
                     baseY,
-                    -center.z * scale + config.position.z
+                    -center.z * scale + finalPosition.z
                 );
-                model.rotation.y = config.rotation;
+                model.rotation.y = finalRotation;
+
+                // Store final values on config for animation loop
+                config._currentRotation = finalRotation;
+                config._currentPosition = finalPosition;
 
                 // Enhance materials
                 model.traverse((child) => {
@@ -236,7 +267,8 @@ function ProjectModel({ modelConfig, index }) {
                 model.position.y = baseY + Math.sin(elapsed * config.floatSpeed) * config.floatAmount;
 
                 // Sway rotation
-                model.rotation.y = config.rotation + Math.sin(elapsed * config.swaySpeed) * config.swayAmount;
+                const baseRotation = config._currentRotation !== undefined ? config._currentRotation : config.rotation;
+                model.rotation.y = baseRotation + Math.sin(elapsed * config.swaySpeed) * config.swayAmount;
             }
 
             renderer.render(scene, camera);

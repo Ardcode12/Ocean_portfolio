@@ -137,7 +137,7 @@
 
     /* Hero */
     .hero-title {
-        font-size: clamp(1.8rem, 6vw, 2.8rem);
+        font-size: clamp(2.8rem, 8vw, 4rem);
     }
 
     .hero-subtitle {
@@ -219,7 +219,7 @@
 
     /* Hero */
     .hero-title {
-        font-size: clamp(1.5rem, 7vw, 2.2rem);
+        font-size: clamp(3rem, 9vw, 4rem);
     }
 
     .hero-badge {
