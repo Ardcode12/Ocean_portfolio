@@ -71,7 +71,7 @@ const PROJECT_MODELS = [
         // ★ MOBILE OVERRIDES (≤ 768px) — smaller, centered
         mobileScale: 3.3,
         mobileRotation: -Math.PI / 2 + 0.9,
-        mobilePosition: { x: 0.4, y: 0, z: 0 },
+        mobilePosition: { x: 0.4, y: -0.6, z: 0 },
     },
     // ── PROJECT 2 MODEL ──
     {
@@ -87,7 +87,7 @@ const PROJECT_MODELS = [
         // ★ MOBILE OVERRIDES
         mobileScale: 5,
         mobileRotation: Math.PI / 2 - 0.8,
-        mobilePosition: { x: -0.6, y: -0.2, z: 0 },
+        mobilePosition: { x: -0.6, y: -0.6, z: 0 },
     },
     // ── PROJECT 3 MODEL ──
     {
@@ -103,7 +103,7 @@ const PROJECT_MODELS = [
         // ★ MOBILE OVERRIDES
         mobileScale: 4.7,
         mobileRotation: -Math.PI / 2 + 0.8,
-        mobilePosition: { x: 0.35, y: 0, z: 0 },
+        mobilePosition: { x: 0.35, y: -0.7, z: 0 },
     },
     // ── PROJECT 4 MODEL ──
     {
@@ -119,7 +119,7 @@ const PROJECT_MODELS = [
         // ★ MOBILE OVERRIDES
         mobileScale: 4.3,
         mobileRotation: Math.PI / 2 - 0.9,
-        mobilePosition: { x: -0.2, y: -0.3, z: 0 },
+        mobilePosition: { x: -0.2, y: -0.7, z: 0 },
     },
     // ── PROJECT 5 MODEL ──
     {
@@ -133,9 +133,9 @@ const PROJECT_MODELS = [
         swayAmount: 0.1,
         swaySpeed: 0.4,
         // ★ MOBILE OVERRIDES
-        mobileScale: 3.7,
+        mobileScale: 3.5,
         mobileRotation: Math.PI,
-        mobilePosition: { x: 0.6, y: -0.7, z: 0 },
+        mobilePosition: { x: 0.6, y: -0.9, z: 0 },
     },
 ];
 

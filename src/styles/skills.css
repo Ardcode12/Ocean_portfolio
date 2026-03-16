@@ -87,7 +87,7 @@
     border-radius: 50%;
     border: 1px solid rgba(0, 229, 255, 0.15);
     pointer-events: none;
-    box-shadow: 
+    box-shadow:
         0 0 10px rgba(0, 229, 255, 0.05),
         inset 0 0 10px rgba(0, 229, 255, 0.03);
 }
@@ -259,7 +259,7 @@
 
 @media (max-width: 600px) {
     .skills-circle-wrapper {
-        transform: scale(0.5);
+        transform: scale(0.6);
         transform-origin: center center;
     }
 
