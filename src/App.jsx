@@ -1,16 +1,17 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, lazy, Suspense } from 'react';
 import Loader from './components/Loader';
 import Navbar from './components/Navbar';
 import OceanBackground from './components/OceanBackground';
 import UnderwaterFX from './components/UnderwaterFX';
-import OceanCanvas from './components/OceanCanvas';
 import Hero from './components/Hero';
 import About from './components/About';
 import Skills from './components/Skills';
-import Projects from './components/Projects';
 import Achievements from './components/Achievements';
 import Contact from './components/Contact';
 import useScrollAnimations from './hooks/useScrollAnimations';
+
+const OceanCanvas = lazy(() => import('./components/OceanCanvas'));
+const Projects = lazy(() => import('./components/Projects'));
 
 function App() {
     const [loading, setLoading] = useState(true);
@@ -27,12 +28,16 @@ function App() {
             {!loading && <Navbar />}
             <OceanBackground />
             <UnderwaterFX />
-            <OceanCanvas />
+            <Suspense fallback={<div></div>}>
+                <OceanCanvas />
+            </Suspense>
             <div id="scroll-container">
                 <Hero />
                 <About />
                 <Skills />
-                <Projects />
+                <Suspense fallback={<div>Loading projects...</div>}>
+                    <Projects />
+                </Suspense>
                 <Achievements />   {/* ★ ADD THIS */}
                 <Contact />
             </div>
