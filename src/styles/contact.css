@@ -1,0 +1,97 @@
+/* ===== CONTACT SECTION ===== */
+.contact-card {
+    margin-bottom: 24px;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.contact-intro {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 14px 18px;
+    background: rgba(3, 30, 50, 0.6);
+    border: 1px solid rgba(0, 229, 255, 0.08);
+    border-radius: 10px;
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    outline: none;
+    transition: all 0.3s ease;
+    resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: var(--ocean-glow);
+    box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.08),
+        0 0 20px rgba(0, 229, 255, 0.06);
+    background: rgba(3, 30, 50, 0.8);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: var(--text-muted);
+}
+
+.social-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.social-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 50px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-decoration: none;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+}
+
+.social-pill:hover {
+    border-color: var(--ocean-glow);
+    color: var(--ocean-glow);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 229, 255, 0.1);
+}
+
+.social-pill span {
+    font-size: 1.1rem;
+}

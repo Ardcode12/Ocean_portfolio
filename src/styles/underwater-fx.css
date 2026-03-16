@@ -1,0 +1,324 @@
+/* ===== UNDERWATER AMBIENT FX ===== */
+#underwater-fx {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+/* --- Bubbles --- */
+.bubble {
+    position: absolute;
+    bottom: -20px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%,
+            rgba(255, 255, 255, 0.15),
+            rgba(0, 229, 255, 0.08) 40%,
+            transparent 70%);
+    border: 1px solid rgba(0, 229, 255, 0.1);
+    animation: bubbleRise linear infinite;
+    will-change: transform;
+}
+
+.bubble::after {
+    content: '';
+    position: absolute;
+    top: 20%;
+    left: 25%;
+    width: 30%;
+    height: 20%;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    filter: blur(1px);
+}
+
+.bubble-1 {
+    width: 8px;
+    height: 8px;
+    left: 5%;
+    animation-duration: 12s;
+    animation-delay: 0s;
+    opacity: 0.7;
+}
+
+.bubble-2 {
+    width: 14px;
+    height: 14px;
+    left: 15%;
+    animation-duration: 16s;
+    animation-delay: 2s;
+    opacity: 0.5;
+}
+
+.bubble-3 {
+    width: 6px;
+    height: 6px;
+    left: 25%;
+    animation-duration: 10s;
+    animation-delay: 5s;
+    opacity: 0.8;
+}
+
+.bubble-4 {
+    width: 18px;
+    height: 18px;
+    left: 40%;
+    animation-duration: 20s;
+    animation-delay: 1s;
+    opacity: 0.35;
+}
+
+.bubble-5 {
+    width: 10px;
+    height: 10px;
+    left: 55%;
+    animation-duration: 14s;
+    animation-delay: 4s;
+    opacity: 0.6;
+}
+
+.bubble-6 {
+    width: 5px;
+    height: 5px;
+    left: 65%;
+    animation-duration: 11s;
+    animation-delay: 7s;
+    opacity: 0.9;
+}
+
+.bubble-7 {
+    width: 12px;
+    height: 12px;
+    left: 75%;
+    animation-duration: 18s;
+    animation-delay: 3s;
+    opacity: 0.45;
+}
+
+.bubble-8 {
+    width: 7px;
+    height: 7px;
+    left: 85%;
+    animation-duration: 13s;
+    animation-delay: 6s;
+    opacity: 0.65;
+}
+
+.bubble-9 {
+    width: 16px;
+    height: 16px;
+    left: 92%;
+    animation-duration: 22s;
+    animation-delay: 0.5s;
+    opacity: 0.3;
+}
+
+.bubble-10 {
+    width: 4px;
+    height: 4px;
+    left: 35%;
+    animation-duration: 9s;
+    animation-delay: 8s;
+    opacity: 0.85;
+}
+
+.bubble-11 {
+    width: 9px;
+    height: 9px;
+    left: 50%;
+    animation-duration: 15s;
+    animation-delay: 2.5s;
+    opacity: 0.55;
+}
+
+.bubble-12 {
+    width: 6px;
+    height: 6px;
+    left: 10%;
+    animation-duration: 11s;
+    animation-delay: 9s;
+    opacity: 0.7;
+}
+
+@keyframes bubbleRise {
+    0% {
+        transform: translateY(0) translateX(0) scale(1);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: var(--bubble-opacity, 0.6);
+    }
+
+    50% {
+        transform: translateY(-50vh) translateX(20px) scale(1.05);
+    }
+
+    90% {
+        opacity: var(--bubble-opacity, 0.6);
+    }
+
+    100% {
+        transform: translateY(-110vh) translateX(-10px) scale(0.8);
+        opacity: 0;
+    }
+}
+
+/* --- Caustic Light Rays --- */
+.caustic-light {
+    position: absolute;
+    top: -30%;
+    left: -10%;
+    width: 120%;
+    height: 80%;
+    background:
+        conic-gradient(from 200deg at 30% 30%,
+            transparent 0deg,
+            rgba(0, 229, 255, 0.025) 15deg,
+            transparent 35deg,
+            transparent 80deg,
+            rgba(0, 255, 200, 0.02) 100deg,
+            transparent 120deg,
+            transparent 160deg,
+            rgba(0, 229, 255, 0.03) 180deg,
+            transparent 200deg,
+            transparent 250deg,
+            rgba(0, 200, 255, 0.02) 270deg,
+            transparent 290deg,
+            transparent 360deg);
+    animation: causticShift 8s ease-in-out infinite alternate;
+    filter: blur(40px);
+    opacity: 0.7;
+}
+
+@keyframes causticShift {
+    0% {
+        transform: rotate(0deg) scale(1);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform: rotate(3deg) scale(1.05);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: rotate(-2deg) scale(0.98);
+        opacity: 0.6;
+    }
+}
+
+/* --- Floating Particles (Plankton) --- */
+.particle {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0, 229, 255, 0.5), transparent 70%);
+    animation: particleFloat linear infinite;
+    will-change: transform;
+}
+
+.particle-1 {
+    width: 3px;
+    height: 3px;
+    top: 20%;
+    left: 10%;
+    animation-duration: 25s;
+    animation-delay: 0s;
+}
+
+.particle-2 {
+    width: 2px;
+    height: 2px;
+    top: 40%;
+    left: 30%;
+    animation-duration: 30s;
+    animation-delay: 3s;
+}
+
+.particle-3 {
+    width: 4px;
+    height: 4px;
+    top: 60%;
+    left: 50%;
+    animation-duration: 20s;
+    animation-delay: 7s;
+}
+
+.particle-4 {
+    width: 2px;
+    height: 2px;
+    top: 80%;
+    left: 70%;
+    animation-duration: 28s;
+    animation-delay: 1s;
+}
+
+.particle-5 {
+    width: 3px;
+    height: 3px;
+    top: 15%;
+    left: 85%;
+    animation-duration: 22s;
+    animation-delay: 5s;
+}
+
+.particle-6 {
+    width: 2px;
+    height: 2px;
+    top: 50%;
+    left: 5%;
+    animation-duration: 32s;
+    animation-delay: 2s;
+}
+
+.particle-7 {
+    width: 3px;
+    height: 3px;
+    top: 70%;
+    left: 90%;
+    animation-duration: 26s;
+    animation-delay: 9s;
+}
+
+.particle-8 {
+    width: 2px;
+    height: 2px;
+    top: 35%;
+    left: 60%;
+    animation-duration: 24s;
+    animation-delay: 4s;
+}
+
+@keyframes particleFloat {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 0.6;
+    }
+
+    25% {
+        transform: translate(30px, -40px) scale(1.2);
+    }
+
+    50% {
+        transform: translate(-20px, -80px) scale(0.8);
+        opacity: 0.8;
+    }
+
+    75% {
+        transform: translate(40px, -120px) scale(1.1);
+    }
+
+    90% {
+        opacity: 0.5;
+    }
+
+    100% {
+        transform: translate(-10px, -160px) scale(0.6);
+        opacity: 0;
+    }
+}

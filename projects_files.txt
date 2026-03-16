@@ -1,0 +1,1291 @@
+OCEAN PORTFOLIO - PROJECTS SECTION CODE
+Generated on: Tue Mar  3 20:07:33 IST 2026
+
+
+========================================
+FILE: src/components/Projects.jsx
+========================================
+
+import React from 'react';
+
+const PROJECTS = [
+    {
+        id: 1,
+        tag: 'Full Stack',
+        tagClass: '',
+        glowClass: '',
+        emoji: '🌐',
+        title: 'E-Commerce Platform',
+        desc: 'A modern e-commerce platform with real-time inventory tracking, Stripe payment integration, and responsive design across all devices.',
+        tech: ['React', 'Node.js', 'MongoDB', 'Stripe'],
+        featured: true,
+        wide: false,
+    },
+    {
+        id: 2,
+        tag: '3D Experience',
+        tagClass: 'tag-purple',
+        glowClass: 'glow-purple',
+        emoji: '🎮',
+        title: '3D Ocean Portfolio',
+        desc: 'An immersive underwater portfolio with animated 3D fish, particle systems, and scroll-driven transitions.',
+        tech: ['Three.js', 'GLSL', 'GSAP'],
+        featured: false,
+        wide: false,
+    },
+    {
+        id: 3,
+        tag: 'Mobile App',
+        tagClass: 'tag-coral',
+        glowClass: 'glow-coral',
+        emoji: '📱',
+        title: 'Fitness Tracker',
+        desc: 'A cross-platform fitness companion with workout logging, progress charts, and personalized AI recommendations.',
+        tech: ['React Native', 'Firebase', 'Chart.js'],
+        featured: false,
+        wide: false,
+    },
+    {
+        id: 4,
+        tag: 'AI / ML',
+        tagClass: 'tag-teal',
+        glowClass: 'glow-teal',
+        emoji: '🤖',
+        title: 'AI Chat Assistant',
+        desc: 'Intelligent chatbot with NLP, context-aware responses, multi-language support, and sleek conversational UI.',
+        tech: ['Python', 'TensorFlow', 'FastAPI'],
+        featured: false,
+        wide: false,
+    },
+    {
+        id: 5,
+        tag: 'Dashboard',
+        tagClass: 'tag-gold',
+        glowClass: 'glow-gold',
+        emoji: '📊',
+        title: 'Analytics Dashboard',
+        desc: 'A real-time analytics platform with live data visualization, custom report generation, role-based access controls, and dark mode.',
+        tech: ['Next.js', 'D3.js', 'PostgreSQL', 'Redis'],
+        featured: false,
+        wide: true,
+    },
+    {
+        id: 6,
+        tag: 'Creative',
+        tagClass: 'tag-emerald',
+        glowClass: 'glow-emerald',
+        emoji: '🎵',
+        title: 'Music Visualizer',
+        desc: 'Real-time audio visualizer with WebAudio API, reactive 3D geometry, beat detection, and customizable visual themes.',
+        tech: ['Three.js', 'WebAudio', 'GLSL'],
+        featured: false,
+        wide: false,
+    },
+];
+
+function ProjectCard({ project }) {
+    const cardClass = `bento-card${project.featured ? ' bento-featured' : ''}${project.wide ? ' bento-wide' : ''} glass-card`;
+
+    if (project.wide) {
+        return (
+            <div className={cardClass} data-project={project.id}>
+                <div className="bento-bg">
+                    <div className={`bento-glow ${project.glowClass}`}></div>
+                </div>
+                <div className="bento-content bento-horizontal">
+                    <div className="bento-h-left">
+                        <div className="bento-top">
+                            <span className={`project-tag ${project.tagClass}`}>{project.tag}</span>
+                            <span className="bento-number">{String(project.id).padStart(2, '0')}</span>
+                        </div>
+                        <div className="bento-emoji">{project.emoji}</div>
+                    </div>
+                    <div className="bento-h-right">
+                        <h3 className="bento-title">{project.title}</h3>
+                        <p className="bento-desc">{project.desc}</p>
+                        <div className="project-tech">
+                            {project.tech.map((t) => (
+                                <span key={t}>{t}</span>
+                            ))}
+                        </div>
+                        <div className="project-links">
+                            <a href="#" className="btn btn-sm btn-primary">Live Demo</a>
+                            <a href="#" className="btn btn-sm btn-ghost">Code</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    return (
+        <div className={cardClass} data-project={project.id}>
+            <div className="bento-bg">
+                <div className={`bento-glow ${project.glowClass}`}></div>
+            </div>
+            <div className="bento-content">
+                <div className="bento-top">
+                    <span className={`project-tag ${project.tagClass}`}>{project.tag}</span>
+                    <span className="bento-number">{String(project.id).padStart(2, '0')}</span>
+                </div>
+                <div className="bento-emoji">{project.emoji}</div>
+                <h3 className="bento-title">{project.title}</h3>
+                <p className="bento-desc">{project.desc}</p>
+                <div className="project-tech">
+                    {project.tech.map((t) => (
+                        <span key={t}>{t}</span>
+                    ))}
+                </div>
+                <div className="project-links">
+                    <a href="#" className="btn btn-sm btn-primary">Live Demo</a>
+                    <a href="#" className="btn btn-sm btn-ghost">Code</a>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+function Projects() {
+    return (
+        <section id="projects" className="section section-full">
+            <div className="section-inner">
+                <div className="section-label center-label">03 — Projects</div>
+                <h2 className="section-title center-title">
+                    Deep <span className="glow-text">Dives</span>
+                </h2>
+                <div className="bento-grid">
+                    {PROJECTS.map((project) => (
+                        <ProjectCard key={project.id} project={project} />
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+}
+
+export default Projects;
+
+
+========================================
+FILE: src/styles/projects.css
+========================================
+
+/* ===== PROJECTS SECTION — BENTO GRID ===== */
+.section-full .section-inner {
+    max-width: 1400px;
+}
+
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    opacity: 0;
+    transform: translateY(40px);
+}
+
+/* Base bento card */
+.bento-card {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    min-height: 320px;
+    padding: 0;
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+}
+
+.bento-card:hover {
+    transform: translateY(-6px) scale(1.01) !important;
+    box-shadow: 0 20px 60px rgba(0, 229, 255, 0.12),
+        0 0 0 1px rgba(0, 229, 255, 0.1);
+}
+
+/* Featured card spans 2 cols */
+.bento-featured {
+    grid-column: span 2;
+    min-height: 380px;
+}
+
+/* Wide card spans 2 cols, horizontal layout */
+.bento-wide {
+    grid-column: span 2;
+    min-height: 260px;
+}
+
+/* Bento background glow */
+.bento-bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.bento-bg .bento-glow {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    top: -40px;
+    right: -40px;
+    background: radial-gradient(circle, rgba(0, 229, 255, 0.12) 0%, transparent 70%);
+    animation: glowPulse 4s ease-in-out infinite;
+}
+
+.bento-glow.glow-purple {
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.12) 0%, transparent 70%);
+}
+
+.bento-glow.glow-coral {
+    background: radial-gradient(circle, rgba(255, 107, 157, 0.12) 0%, transparent 70%);
+}
+
+.bento-glow.glow-teal {
+    background: radial-gradient(circle, rgba(20, 184, 166, 0.12) 0%, transparent 70%);
+}
+
+.bento-glow.glow-gold {
+    background: radial-gradient(circle, rgba(255, 215, 0, 0.12) 0%, transparent 70%);
+}
+
+.bento-glow.glow-emerald {
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, transparent 70%);
+}
+
+@keyframes glowPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.7;
+    }
+
+    50% {
+        transform: scale(1.3);
+        opacity: 1;
+    }
+}
+
+/* Bento content */
+.bento-content {
+    position: relative;
+    z-index: 1;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.bento-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+}
+
+.bento-number {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: rgba(0, 229, 255, 0.08);
+    line-height: 1;
+}
+
+.bento-emoji {
+    font-size: 3rem;
+    margin-bottom: 16px;
+    transition: transform 0.4s ease;
+}
+
+.bento-card:hover .bento-emoji {
+    transform: scale(1.15) rotate(5deg);
+}
+
+.bento-title {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--text-primary);
+}
+
+.bento-desc {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 16px;
+    flex: 1;
+}
+
+/* Horizontal layout for wide card */
+.bento-horizontal {
+    flex-direction: row;
+    align-items: center;
+    gap: 30px;
+}
+
+.bento-h-left {
+    flex: 0 0 auto;
+    text-align: center;
+}
+
+.bento-h-left .bento-emoji {
+    font-size: 4rem;
+}
+
+.bento-h-right {
+    flex: 1;
+}
+
+/* Project tags */
+.project-tag {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    background: rgba(0, 229, 255, 0.1);
+    color: var(--ocean-glow);
+    border: 1px solid rgba(0, 229, 255, 0.15);
+}
+
+.tag-purple {
+    background: rgba(168, 85, 247, 0.1);
+    color: var(--ocean-purple);
+    border-color: rgba(168, 85, 247, 0.15);
+}
+
+.tag-coral {
+    background: rgba(255, 107, 157, 0.1);
+    color: var(--ocean-coral);
+    border-color: rgba(255, 107, 157, 0.15);
+}
+
+.tag-teal {
+    background: rgba(20, 184, 166, 0.1);
+    color: var(--ocean-teal);
+    border-color: rgba(20, 184, 166, 0.15);
+}
+
+.tag-gold {
+    background: rgba(255, 215, 0, 0.1);
+    color: var(--ocean-gold);
+    border-color: rgba(255, 215, 0, 0.15);
+}
+
+.tag-emerald {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--ocean-emerald);
+    border-color: rgba(16, 185, 129, 0.15);
+}
+
+.project-tech {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+.project-tech span {
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    background: rgba(0, 229, 255, 0.06);
+    color: var(--ocean-glow);
+    border: 1px solid rgba(0, 229, 255, 0.1);
+}
+
+.project-links {
+    display: flex;
+    gap: 8px;
+}
+
+========================================
+FILE: src/components/OceanCanvas.jsx
+========================================
+
+import { useEffect, useRef } from 'react';
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
+
+const FISH_SECTIONS = {
+    hero: {
+        size: 8,
+        position: { x: 2, y: 2, z: 4 },
+        rotation: -Math.PI / 2 - 0.8,
+        animation: 0,
+    },
+    about: {
+        size: 6,
+        position: { x: -4, y: 1.5, z: 5 },
+        rotation: -Math.PI / 2 + 0.3,
+        animation: 1,
+        switchToAnimation: 0,
+        switchAfterLoops: 1,
+    },
+    skills: {
+        size: 6,
+        position: { x: 3, y: 1, z: 5 },
+        rotation: -Math.PI / 2 - 0.5,
+        animation: 0,
+    },
+    projects: {
+        size: 6,
+        position: { x: 0, y: 0.5, z: 4 },
+        rotation: -Math.PI / 4,
+        animation: 1,
+    },
+    contact: {
+        size: 4,
+        position: { x: -3, y: 1.5, z: 5 },
+        rotation: Math.PI / 2 + 0.3,
+        animation: 0,
+    },
+};
+
+function OceanCanvas() {
+    const canvasRef = useRef(null);
+
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+
+        // Scene
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 200);
+        camera.position.set(0, 2, 12);
+
+        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+        renderer.setClearColor(0x000000, 0);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+        // Lights
+        scene.add(new THREE.AmbientLight(0x4a8aaa, 2.0));
+        const sun = new THREE.DirectionalLight(0xffffff, 2.5);
+        sun.position.set(5, 10, 10);
+        scene.add(sun);
+        const fill = new THREE.DirectionalLight(0x88bbdd, 1.5);
+        fill.position.set(-5, 5, 10);
+        scene.add(fill);
+
+        // Fish state
+        let fishGroup = null;
+        let fishModel = null;
+        let mixer = null;
+        let animations = [];
+        let currentAction = null;
+        let currentSection = 'hero';
+        let currentSize = FISH_SECTIONS.hero.size;
+        let targetSize = FISH_SECTIONS.hero.size;
+        let currentRotation = FISH_SECTIONS.hero.rotation;
+        let targetRotation = FISH_SECTIONS.hero.rotation;
+        let currentPos = { ...FISH_SECTIONS.hero.position };
+        let targetPos = { ...FISH_SECTIONS.hero.position };
+        let animationLoopCount = 0;
+        let waitingToSwitch = false;
+
+        const clock = new THREE.Clock();
+        const loader = new GLTFLoader();
+
+        function playAnimation(index) {
+            if (!mixer || !animations[index]) {
+                console.log(`⚠️ Animation ${index} not found`);
+                return;
+            }
+
+            const clip = animations[index];
+            const filteredClip = clip.clone();
+            filteredClip.tracks = filteredClip.tracks.filter(
+                (track) => !track.name.includes('.position')
+            );
+
+            if (currentAction) {
+                currentAction.fadeOut(0.5);
+            }
+
+            const action = mixer.clipAction(filteredClip);
+            action.reset();
+            action.fadeIn(0.5);
+            action.play();
+
+            currentAction = action;
+            animationLoopCount = 0;
+
+            console.log(`🎬 Playing animation [${index}]: "${clip.name}"`);
+        }
+
+        function onAnimationLoop() {
+            animationLoopCount++;
+            const sectionSettings = FISH_SECTIONS[currentSection];
+
+            if (
+                sectionSettings.switchToAnimation !== undefined &&
+                sectionSettings.switchAfterLoops !== undefined &&
+                animationLoopCount >= sectionSettings.switchAfterLoops &&
+                !waitingToSwitch
+            ) {
+                waitingToSwitch = true;
+                playAnimation(sectionSettings.switchToAnimation);
+                waitingToSwitch = false;
+            }
+        }
+
+        function switchToSection(sectionId) {
+            if (currentSection === sectionId) return;
+
+            currentSection = sectionId;
+            const settings = FISH_SECTIONS[sectionId];
+            if (!settings) return;
+
+            console.log(`📍 Entering section: ${sectionId}`);
+
+            targetPos = { ...settings.position };
+            targetSize = settings.size;
+            targetRotation = settings.rotation;
+
+            animationLoopCount = 0;
+            waitingToSwitch = false;
+            playAnimation(settings.animation);
+        }
+
+        function setupScrollTriggers() {
+            Object.keys(FISH_SECTIONS).forEach((id) => {
+                ScrollTrigger.create({
+                    trigger: '#' + id,
+                    start: 'top center',
+                    end: 'bottom center',
+                    onEnter: () => switchToSection(id),
+                    onEnterBack: () => switchToSection(id),
+                });
+            });
+        }
+
+        // Load main fish
+        loader.load(
+            '/glb_files/main_fish.glb',
+            (gltf) => {
+                fishModel = gltf.scene;
+
+                const box = new THREE.Box3().setFromObject(fishModel);
+                const size = box.getSize(new THREE.Vector3());
+                const maxDim = Math.max(size.x, size.y, size.z);
+
+                fishModel.userData.originalMaxDim = maxDim;
+
+                const scale = FISH_SECTIONS.hero.size / maxDim;
+                fishModel.scale.setScalar(scale);
+
+                const center = box.getCenter(new THREE.Vector3());
+                fishModel.userData.centerOffset = {
+                    x: -center.x,
+                    y: -center.y,
+                    z: -center.z,
+                };
+
+                fishModel.position.set(
+                    fishModel.userData.centerOffset.x * scale,
+                    fishModel.userData.centerOffset.y * scale,
+                    fishModel.userData.centerOffset.z * scale
+                );
+
+                fishModel.rotation.y = FISH_SECTIONS.hero.rotation;
+
+                fishModel.traverse((child) => {
+                    if (child.isMesh && child.material) {
+                        child.material.envMapIntensity = 1.5;
+                        if (child.material.emissive) {
+                            child.material.emissive.set(0x224466);
+                            child.material.emissiveIntensity = 0.2;
+                        }
+                        child.material.needsUpdate = true;
+                    }
+                });
+
+                fishGroup = new THREE.Group();
+                fishGroup.add(fishModel);
+                fishGroup.position.set(
+                    FISH_SECTIONS.hero.position.x,
+                    FISH_SECTIONS.hero.position.y,
+                    FISH_SECTIONS.hero.position.z
+                );
+                scene.add(fishGroup);
+
+                console.log('✅ Main fish loaded');
+
+                animations = gltf.animations;
+                console.log(`📽️ Main fish has ${animations.length} animations`);
+
+                mixer = new THREE.AnimationMixer(fishModel);
+                mixer.addEventListener('loop', onAnimationLoop);
+                playAnimation(FISH_SECTIONS.hero.animation);
+
+                setupScrollTriggers();
+            },
+            undefined,
+            (err) => console.error('❌ Main fish error:', err)
+        );
+
+        // Animation loop
+        let animFrameId;
+        function animate() {
+            animFrameId = requestAnimationFrame(animate);
+            const delta = clock.getDelta();
+
+            if (mixer) {
+                mixer.update(delta);
+            }
+
+            if (fishGroup && fishModel) {
+                const smooth = 0.02;
+                const sizeSmoothness = 0.03;
+
+                currentPos.x += (targetPos.x - currentPos.x) * smooth;
+                currentPos.y += (targetPos.y - currentPos.y) * smooth;
+                currentPos.z += (targetPos.z - currentPos.z) * smooth;
+                fishGroup.position.set(currentPos.x, currentPos.y, currentPos.z);
+
+                currentSize += (targetSize - currentSize) * sizeSmoothness;
+                const newScale = currentSize / fishModel.userData.originalMaxDim;
+                fishModel.scale.setScalar(newScale);
+
+                fishModel.position.set(
+                    fishModel.userData.centerOffset.x * newScale,
+                    fishModel.userData.centerOffset.y * newScale,
+                    fishModel.userData.centerOffset.z * newScale
+                );
+
+                currentRotation += (targetRotation - currentRotation) * smooth;
+                fishModel.rotation.y = currentRotation;
+
+                const movingLeft = targetPos.x < currentPos.x - 0.1;
+                const movingRight = targetPos.x > currentPos.x + 0.1;
+
+                let turnAmount = 0;
+                if (movingLeft) turnAmount = 0.1;
+                else if (movingRight) turnAmount = -0.1;
+
+                fishGroup.rotation.y += (turnAmount - fishGroup.rotation.y) * smooth;
+            }
+
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Resize handler
+        const handleResize = () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        };
+        window.addEventListener('resize', handleResize);
+
+        console.log('🌊 Portfolio Ready - Main Fish Only');
+
+        // Cleanup
+        return () => {
+            cancelAnimationFrame(animFrameId);
+            window.removeEventListener('resize', handleResize);
+            renderer.dispose();
+            ScrollTrigger.getAll().forEach((st) => st.kill());
+        };
+    }, []);
+
+    return <canvas id="ocean-canvas" ref={canvasRef}></canvas>;
+}
+
+export default OceanCanvas;
+
+
+========================================
+FILE: src/hooks/useScrollAnimations.js
+========================================
+
+import { useEffect } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
+
+export default function useScrollAnimations(loading) {
+    useEffect(() => {
+        if (loading) return;
+
+        const raf = requestAnimationFrame(() => {
+            setupHeroAnimation();
+            setupSectionAnimations();
+        });
+
+        return () => {
+            cancelAnimationFrame(raf);
+        };
+    }, [loading]);
+}
+
+function setupHeroAnimation() {
+    const tl = gsap.timeline({ delay: 0.5 });
+    tl.to('.hero-badge', { opacity: 1, y: 0, duration: 0.6 });
+    tl.to('.line-1', { opacity: 1, y: 0, duration: 0.6 }, '-=0.3');
+    tl.to('.line-2', { opacity: 1, y: 0, duration: 0.7 }, '-=0.3');
+    tl.to('.line-3', { opacity: 1, y: 0, duration: 0.6 }, '-=0.3');
+    tl.to('.hero-subtitle', { opacity: 1, y: 0, duration: 0.5 }, '-=0.2');
+    tl.to('.hero-cta', { opacity: 1, y: 0, duration: 0.5 }, '-=0.2');
+    tl.to('.scroll-indicator', { opacity: 0.7, duration: 0.8 }, '-=0.2');
+}
+
+function setupSectionAnimations() {
+    ['about', 'skills', 'projects', 'contact'].forEach((id) => {
+        const section = document.getElementById(id);
+        if (!section) return;
+
+        const label = section.querySelector('.section-label');
+        const title = section.querySelector('.section-title');
+
+        gsap
+            .timeline({
+                scrollTrigger: {
+                    trigger: section,
+                    start: 'top 70%',
+                    toggleActions: 'play none none reverse',
+                },
+            })
+            .to(label, { opacity: 1, x: 0, duration: 0.5 }, 0)
+            .to(title, { opacity: 1, x: 0, duration: 0.6 }, 0.1);
+
+        if (id === 'about') {
+            gsap.to('.about-card', {
+                opacity: 1,
+                y: 0,
+                duration: 0.6,
+                scrollTrigger: { trigger: section, start: 'top 60%' },
+            });
+            gsap.to('.stats-row', {
+                opacity: 1,
+                y: 0,
+                duration: 0.6,
+                scrollTrigger: { trigger: section, start: 'top 50%' },
+            });
+            ScrollTrigger.create({
+                trigger: section,
+                start: 'top 55%',
+                once: true,
+                onEnter: () => {
+                    document.querySelectorAll('.stat-number').forEach((el) => {
+                        gsap.to(el, {
+                            innerText: parseInt(el.dataset.count),
+                            duration: 2,
+                            snap: { innerText: 1 },
+                            onUpdate() {
+                                el.textContent = Math.round(parseFloat(el.textContent));
+                            },
+                        });
+                    });
+                },
+            });
+        }
+
+        // ★ FIXED: Target .skill-orb-positioned instead of .skill-orb
+        if (id === 'skills') {
+            gsap.to('.skill-orb-positioned', {
+                opacity: 1,
+                scale: 1,
+                duration: 0.5,
+                stagger: 0.06,
+                ease: 'back.out(1.4)',
+                scrollTrigger: {
+                    trigger: section,
+                    start: 'top 55%',
+                },
+            });
+
+            // Animate the center gap
+            gsap.from('.circle-center-gap', {
+                scale: 0,
+                opacity: 0,
+                duration: 0.8,
+                ease: 'elastic.out(1, 0.5)',
+                scrollTrigger: {
+                    trigger: section,
+                    start: 'top 55%',
+                },
+            });
+
+            // Animate orbit ring
+            gsap.from('.orbit-ring', {
+                scale: 0,
+                opacity: 0,
+                duration: 1,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: section,
+                    start: 'top 60%',
+                },
+            });
+
+            // Animate depth tabs
+            gsap.from('.depth-tab', {
+                y: 20,
+                opacity: 0,
+                duration: 0.4,
+                stagger: 0.08,
+                scrollTrigger: {
+                    trigger: section,
+                    start: 'top 65%',
+                },
+            });
+        }
+
+        if (id === 'projects') {
+            gsap.to('.bento-grid', {
+                opacity: 1,
+                y: 0,
+                duration: 0.5,
+                scrollTrigger: { trigger: section, start: 'top 70%' },
+            });
+            gsap.to('.bento-card', {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                duration: 0.6,
+                stagger: 0.12,
+                scrollTrigger: { trigger: section, start: 'top 60%' },
+            });
+        }
+
+        if (id === 'contact') {
+            gsap.to('.contact-card', {
+                opacity: 1,
+                y: 0,
+                duration: 0.6,
+                scrollTrigger: { trigger: section, start: 'top 60%' },
+            });
+            gsap.to('.social-row', {
+                opacity: 1,
+                y: 0,
+                duration: 0.6,
+                scrollTrigger: { trigger: section, start: 'top 50%' },
+            });
+        }
+    });
+}
+
+========================================
+FILE: src/App.jsx
+========================================
+
+import React, { useState, useEffect } from 'react';
+import Loader from './components/Loader';
+import OceanBackground from './components/OceanBackground';
+import UnderwaterFX from './components/UnderwaterFX';
+import OceanCanvas from './components/OceanCanvas';
+import Hero from './components/Hero';
+import About from './components/About';
+import Skills from './components/Skills';
+import Projects from './components/Projects';
+import Contact from './components/Contact';
+import Footer from './components/Footer';
+import useScrollAnimations from './hooks/useScrollAnimations';
+
+function App() {
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const timer = setTimeout(() => setLoading(false), 1500);
+        return () => clearTimeout(timer);
+    }, []);
+
+    useScrollAnimations(loading);
+
+    return (
+        <>
+            <Loader visible={loading} />
+            <OceanBackground />
+            <UnderwaterFX />
+            <OceanCanvas />
+            <div id="scroll-container">
+                <Hero />
+                <About />
+                <Skills />
+                <Projects />
+                <Contact />
+                <Footer />
+            </div>
+        </>
+    );
+}
+
+export default App;
+
+
+========================================
+FILE: src/styles/global.css
+========================================
+
+/* ============================================
+   🌊 OCEAN PORTFOLIO — GLOBAL STYLES
+   ============================================ */
+
+/* --- Custom Properties --- */
+:root {
+    --ocean-darkest: #010a14;
+    --ocean-dark: #021a2e;
+    --ocean-mid: #033b55;
+    --ocean-light: #0a6e8a;
+    --ocean-surface: #0ea5c0;
+    --ocean-glow: #00e5ff;
+    --ocean-biolum: #00ffc8;
+    --ocean-coral: #ff6b9d;
+    --ocean-gold: #ffd700;
+    --ocean-purple: #a855f7;
+    --ocean-teal: #14b8a6;
+    --ocean-emerald: #10b981;
+
+    --text-primary: #eaf6fb;
+    --text-secondary: rgba(234, 246, 251, 0.65);
+    --text-muted: rgba(234, 246, 251, 0.35);
+
+    --glass-bg: rgba(3, 30, 50, 0.45);
+    --glass-border: rgba(0, 229, 255, 0.12);
+    --glass-hover: rgba(0, 229, 255, 0.22);
+
+    --font-display: 'Outfit', sans-serif;
+    --font-body: 'Inter', sans-serif;
+
+    --content-width: 50%;
+    --fish-width: 50%;
+}
+
+/* --- Reset --- */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: var(--font-body);
+    background: var(--ocean-darkest);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ===== THREE.JS CANVAS ===== */
+#ocean-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* ===== SCROLL CONTAINER ===== */
+#scroll-container {
+    position: relative;
+    z-index: 2;
+}
+
+/* ===== SECTIONS ===== */
+.section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 100px 60px;
+}
+
+/* Subtle depth separator between sections */
+.section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(0, 229, 255, 0.08) 20%,
+            rgba(0, 229, 255, 0.15) 50%,
+            rgba(0, 229, 255, 0.08) 80%,
+            transparent);
+}
+
+.section-inner {
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* Split Layout — content on one side, fish area on other */
+.split-layout {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.split-left .content-side {
+    order: 1;
+}
+
+.split-left .fish-side {
+    order: 2;
+}
+
+.split-right .content-side {
+    order: 2;
+}
+
+.split-right .fish-side {
+    order: 1;
+}
+
+.content-side {
+    flex: 0 0 55%;
+    max-width: 55%;
+    z-index: 3;
+}
+
+.fish-side {
+    flex: 1;
+    min-height: 400px;
+}
+
+/* Hero specific split */
+.hero-layout {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.hero-layout .content-side {
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+
+.hero-layout .fish-side {
+    flex: 1;
+}
+
+/* Section Headers */
+.section-label {
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--ocean-glow);
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    opacity: 0;
+    transform: translateX(-30px);
+}
+
+.section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 40px;
+    opacity: 0;
+    transform: translateX(-30px);
+}
+
+.center-label,
+.center-title {
+    text-align: center;
+}
+
+.glow-text {
+    background: linear-gradient(135deg, var(--ocean-glow), var(--ocean-biolum));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 20px rgba(0, 229, 255, 0.3));
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 30px;
+    border-radius: 12px;
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    border: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.btn:hover::before {
+    opacity: 1;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--ocean-glow) 0%, var(--ocean-surface) 100%);
+    color: var(--ocean-darkest);
+    box-shadow: 0 4px 20px rgba(0, 229, 255, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 40px rgba(0, 229, 255, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.btn-ghost {
+    background: rgba(0, 229, 255, 0.06);
+    color: var(--text-primary);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(6px);
+}
+
+.btn-ghost:hover {
+    border-color: var(--ocean-glow);
+    color: var(--ocean-glow);
+    transform: translateY(-3px);
+    background: rgba(0, 229, 255, 0.1);
+}
+
+.btn-sm {
+    padding: 8px 18px;
+    font-size: 0.78rem;
+    border-radius: 8px;
+}
+
+.btn-submit {
+    width: 100%;
+    justify-content: center;
+    padding: 16px;
+    border-radius: 14px;
+    font-size: 0.95rem;
+}
+
+/* ===== SCROLL INDICATOR ===== */
+.scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    opacity: 0;
+}
+
+.scroll-line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, transparent, var(--ocean-glow), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+
+    0%,
+    100% {
+        opacity: 0.3;
+        height: 60px;
+    }
+
+    50% {
+        opacity: 1;
+        height: 80px;
+    }
+}
+
+.scroll-indicator span {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+
+/* ===== GLASS CARD ===== */
+.glass-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 36px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.glass-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.3), transparent);
+}
+
+/* Underwater shimmer on glass cards */
+.glass-card::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg,
+            transparent 40%,
+            rgba(0, 229, 255, 0.03) 45%,
+            rgba(0, 229, 255, 0.05) 50%,
+            rgba(0, 229, 255, 0.03) 55%,
+            transparent 60%);
+    animation: underwaterShimmer 6s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes underwaterShimmer {
+    0% {
+        transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    }
+
+    100% {
+        transform: translateX(100%) translateY(100%) rotate(45deg);
+    }
+}
+
+.glass-card:hover {
+    border-color: var(--glass-hover);
+    box-shadow: 0 8px 50px rgba(0, 229, 255, 0.08),
+        0 0 0 1px rgba(0, 229, 255, 0.05);
+    transform: translateY(-4px);
+}

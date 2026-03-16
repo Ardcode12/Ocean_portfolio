@@ -1,0 +1,2137 @@
+]633;E;for f in src/components/Skills.jsx src/style.css src/App.jsx index.html src/components/OceanCanvas.jsx;9a8b2c78-2acf-4508-9572-1eea53a72052]633;C
+===== src/components/Skills.jsx =====
+
+import React, { useState } from 'react';
+
+const SKILLS_DATA = [
+    // Frontend
+    { category: 'frontend', skill: 'HTML/CSS', icon: '🏗️', pct: 95 },
+    { category: 'frontend', skill: 'JavaScript', icon: '⚡', pct: 90 },
+    { category: 'frontend', skill: 'React', icon: '⚛️', pct: 85 },
+    { category: 'frontend', skill: 'Three.js', icon: '🎮', pct: 80 },
+    { category: 'frontend', skill: 'GSAP', icon: '🎨', pct: 88 },
+    // Backend
+    { category: 'backend', skill: 'Node.js', icon: '🟢', pct: 85 },
+    { category: 'backend', skill: 'Python', icon: '🐍', pct: 75 },
+    { category: 'backend', skill: 'MongoDB', icon: '🍃', pct: 80 },
+    { category: 'backend', skill: 'REST APIs', icon: '🔗', pct: 82 },
+    // Tools
+    { category: 'tools', skill: 'Git', icon: '🔧', pct: 90 },
+    { category: 'tools', skill: 'Docker', icon: '🐳', pct: 65 },
+    { category: 'tools', skill: 'Figma', icon: '🎯', pct: 78 },
+    { category: 'tools', skill: 'Linux', icon: '🐧', pct: 82 },
+];
+
+const TABS = [
+    { id: 'all', icon: '🌊', label: 'All' },
+    { id: 'frontend', icon: '🐠', label: 'Frontend' },
+    { id: 'backend', icon: '🐙', label: 'Backend' },
+    { id: 'tools', icon: '⚓', label: 'Tools' },
+];
+
+function Skills() {
+    const [activeTab, setActiveTab] = useState('all');
+
+    const filteredSkills =
+        activeTab === 'all' ? SKILLS_DATA : SKILLS_DATA.filter((s) => s.category === activeTab);
+
+    return (
+        <section id="skills" className="section section-full">
+            <div className="section-inner">
+                <div className="section-label center-label">02 — Skills</div>
+                <h2 className="section-title center-title">
+                    My <span className="glow-text">Arsenal</span>
+                </h2>
+
+                {/* Depth Tabs */}
+                <div className="depth-tabs">
+                    {TABS.map((tab) => (
+                        <button
+                            key={tab.id}
+                            className={`depth-tab${activeTab === tab.id ? ' active' : ''}`}
+                            data-tab={tab.id}
+                            onClick={() => setActiveTab(tab.id)}
+                        >
+                            <span className="tab-icon">{tab.icon}</span> {tab.label}
+                        </button>
+                    ))}
+                </div>
+
+                {/* Skills Ocean Grid */}
+                <div className="skills-ocean-grid">
+                    {filteredSkills.map((s) => (
+                        <div
+                            key={s.skill}
+                            className="skill-orb"
+                            data-category={s.category}
+                            data-skill={s.skill}
+                        >
+                            <div className="orb-ring">
+                                <svg viewBox="0 0 120 120">
+                                    <circle cx="60" cy="60" r="52" className="orb-track" />
+                                    <circle
+                                        cx="60"
+                                        cy="60"
+                                        r="52"
+                                        className="orb-fill"
+                                        style={{ '--pct': s.pct }}
+                                    />
+                                </svg>
+                                <div className="orb-center">
+                                    <span className="orb-icon">{s.icon}</span>
+                                    <span className="orb-value">{s.pct}%</span>
+                                </div>
+                            </div>
+                            <span className="orb-label">{s.skill}</span>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+}
+
+export default Skills;
+
+===== src/style.css =====
+
+/* ============================================
+   🌊 OCEAN PORTFOLIO — DEEP UNDERWATER THEME
+   ============================================ */
+
+/* --- Custom Properties --- */
+:root {
+  --ocean-darkest: #010a14;
+  --ocean-dark: #021a2e;
+  --ocean-mid: #033b55;
+  --ocean-light: #0a6e8a;
+  --ocean-surface: #0ea5c0;
+  --ocean-glow: #00e5ff;
+  --ocean-biolum: #00ffc8;
+  --ocean-coral: #ff6b9d;
+  --ocean-gold: #ffd700;
+  --ocean-purple: #a855f7;
+  --ocean-teal: #14b8a6;
+  --ocean-emerald: #10b981;
+
+  --text-primary: #eaf6fb;
+  --text-secondary: rgba(234, 246, 251, 0.65);
+  --text-muted: rgba(234, 246, 251, 0.35);
+
+  --glass-bg: rgba(3, 30, 50, 0.45);
+  --glass-border: rgba(0, 229, 255, 0.12);
+  --glass-hover: rgba(0, 229, 255, 0.22);
+
+  --font-display: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  --content-width: 50%;
+  --fish-width: 50%;
+}
+
+/* --- Reset --- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--ocean-darkest);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== OCEAN VIDEO BACKGROUND ===== */
+#ocean-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  overflow: hidden;
+}
+
+#ocean-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  opacity: 0.4;
+  filter: brightness(0.45) saturate(1.6) hue-rotate(-15deg);
+}
+
+.ocean-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(0, 229, 255, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 80%, rgba(168, 85, 247, 0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(0, 255, 200, 0.03) 0%, transparent 60%);
+  z-index: 1;
+}
+
+.ocean-gradient-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 250px;
+  background: linear-gradient(to bottom, var(--ocean-darkest) 0%, transparent 100%);
+  z-index: 2;
+}
+
+.ocean-gradient-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 250px;
+  background: linear-gradient(to top, var(--ocean-darkest) 0%, transparent 100%);
+  z-index: 2;
+}
+
+/* ===== UNDERWATER AMBIENT FX ===== */
+#underwater-fx {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* --- Bubbles --- */
+.bubble {
+  position: absolute;
+  bottom: -20px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%,
+      rgba(255, 255, 255, 0.15),
+      rgba(0, 229, 255, 0.08) 40%,
+      transparent 70%);
+  border: 1px solid rgba(0, 229, 255, 0.1);
+  animation: bubbleRise linear infinite;
+  will-change: transform;
+}
+
+.bubble::after {
+  content: '';
+  position: absolute;
+  top: 20%;
+  left: 25%;
+  width: 30%;
+  height: 20%;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  filter: blur(1px);
+}
+
+.bubble-1 {
+  width: 8px;
+  height: 8px;
+  left: 5%;
+  animation-duration: 12s;
+  animation-delay: 0s;
+  opacity: 0.7;
+}
+
+.bubble-2 {
+  width: 14px;
+  height: 14px;
+  left: 15%;
+  animation-duration: 16s;
+  animation-delay: 2s;
+  opacity: 0.5;
+}
+
+.bubble-3 {
+  width: 6px;
+  height: 6px;
+  left: 25%;
+  animation-duration: 10s;
+  animation-delay: 5s;
+  opacity: 0.8;
+}
+
+.bubble-4 {
+  width: 18px;
+  height: 18px;
+  left: 40%;
+  animation-duration: 20s;
+  animation-delay: 1s;
+  opacity: 0.35;
+}
+
+.bubble-5 {
+  width: 10px;
+  height: 10px;
+  left: 55%;
+  animation-duration: 14s;
+  animation-delay: 4s;
+  opacity: 0.6;
+}
+
+.bubble-6 {
+  width: 5px;
+  height: 5px;
+  left: 65%;
+  animation-duration: 11s;
+  animation-delay: 7s;
+  opacity: 0.9;
+}
+
+.bubble-7 {
+  width: 12px;
+  height: 12px;
+  left: 75%;
+  animation-duration: 18s;
+  animation-delay: 3s;
+  opacity: 0.45;
+}
+
+.bubble-8 {
+  width: 7px;
+  height: 7px;
+  left: 85%;
+  animation-duration: 13s;
+  animation-delay: 6s;
+  opacity: 0.65;
+}
+
+.bubble-9 {
+  width: 16px;
+  height: 16px;
+  left: 92%;
+  animation-duration: 22s;
+  animation-delay: 0.5s;
+  opacity: 0.3;
+}
+
+.bubble-10 {
+  width: 4px;
+  height: 4px;
+  left: 35%;
+  animation-duration: 9s;
+  animation-delay: 8s;
+  opacity: 0.85;
+}
+
+.bubble-11 {
+  width: 9px;
+  height: 9px;
+  left: 50%;
+  animation-duration: 15s;
+  animation-delay: 2.5s;
+  opacity: 0.55;
+}
+
+.bubble-12 {
+  width: 6px;
+  height: 6px;
+  left: 10%;
+  animation-duration: 11s;
+  animation-delay: 9s;
+  opacity: 0.7;
+}
+
+@keyframes bubbleRise {
+  0% {
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: var(--bubble-opacity, 0.6);
+  }
+
+  50% {
+    transform: translateY(-50vh) translateX(20px) scale(1.05);
+  }
+
+  90% {
+    opacity: var(--bubble-opacity, 0.6);
+  }
+
+  100% {
+    transform: translateY(-110vh) translateX(-10px) scale(0.8);
+    opacity: 0;
+  }
+}
+
+/* --- Caustic Light Rays --- */
+.caustic-light {
+  position: absolute;
+  top: -30%;
+  left: -10%;
+  width: 120%;
+  height: 80%;
+  background:
+    conic-gradient(from 200deg at 30% 30%,
+      transparent 0deg,
+      rgba(0, 229, 255, 0.025) 15deg,
+      transparent 35deg,
+      transparent 80deg,
+      rgba(0, 255, 200, 0.02) 100deg,
+      transparent 120deg,
+      transparent 160deg,
+      rgba(0, 229, 255, 0.03) 180deg,
+      transparent 200deg,
+      transparent 250deg,
+      rgba(0, 200, 255, 0.02) 270deg,
+      transparent 290deg,
+      transparent 360deg);
+  animation: causticShift 8s ease-in-out infinite alternate;
+  filter: blur(40px);
+  opacity: 0.7;
+}
+
+@keyframes causticShift {
+  0% {
+    transform: rotate(0deg) scale(1);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: rotate(3deg) scale(1.05);
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: rotate(-2deg) scale(0.98);
+    opacity: 0.6;
+  }
+}
+
+/* --- Floating Particles (Plankton) --- */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 229, 255, 0.5), transparent 70%);
+  animation: particleFloat linear infinite;
+  will-change: transform;
+}
+
+.particle-1 {
+  width: 3px;
+  height: 3px;
+  top: 20%;
+  left: 10%;
+  animation-duration: 25s;
+  animation-delay: 0s;
+}
+
+.particle-2 {
+  width: 2px;
+  height: 2px;
+  top: 40%;
+  left: 30%;
+  animation-duration: 30s;
+  animation-delay: 3s;
+}
+
+.particle-3 {
+  width: 4px;
+  height: 4px;
+  top: 60%;
+  left: 50%;
+  animation-duration: 20s;
+  animation-delay: 7s;
+}
+
+.particle-4 {
+  width: 2px;
+  height: 2px;
+  top: 80%;
+  left: 70%;
+  animation-duration: 28s;
+  animation-delay: 1s;
+}
+
+.particle-5 {
+  width: 3px;
+  height: 3px;
+  top: 15%;
+  left: 85%;
+  animation-duration: 22s;
+  animation-delay: 5s;
+}
+
+.particle-6 {
+  width: 2px;
+  height: 2px;
+  top: 50%;
+  left: 5%;
+  animation-duration: 32s;
+  animation-delay: 2s;
+}
+
+.particle-7 {
+  width: 3px;
+  height: 3px;
+  top: 70%;
+  left: 90%;
+  animation-duration: 26s;
+  animation-delay: 9s;
+}
+
+.particle-8 {
+  width: 2px;
+  height: 2px;
+  top: 35%;
+  left: 60%;
+  animation-duration: 24s;
+  animation-delay: 4s;
+}
+
+@keyframes particleFloat {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 0.6;
+  }
+
+  25% {
+    transform: translate(30px, -40px) scale(1.2);
+  }
+
+  50% {
+    transform: translate(-20px, -80px) scale(0.8);
+    opacity: 0.8;
+  }
+
+  75% {
+    transform: translate(40px, -120px) scale(1.1);
+  }
+
+  90% {
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: translate(-10px, -160px) scale(0.6);
+    opacity: 0;
+  }
+}
+
+/* ===== THREE.JS CANVAS ===== */
+#ocean-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ===== LOADING SCREEN ===== */
+#loader {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at center, #041c32 0%, #010a14 70%);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 1s ease, visibility 1s ease;
+}
+
+#loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loader-content {
+  text-align: center;
+}
+
+.loader-ring {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 30px;
+  position: relative;
+}
+
+.loader-ring svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.loader-circle-bg {
+  fill: none;
+  stroke: rgba(0, 229, 255, 0.1);
+  stroke-width: 2;
+}
+
+.loader-circle-fill {
+  fill: none;
+  stroke: url(#loaderGrad);
+  stroke: var(--ocean-glow);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-dasharray: 251;
+  stroke-dashoffset: 251;
+  transition: stroke-dashoffset 0.5s ease;
+  filter: drop-shadow(0 0 8px var(--ocean-glow));
+}
+
+.loader-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2.5rem;
+  animation: fishSwim 2s ease-in-out infinite;
+}
+
+@keyframes fishSwim {
+
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scaleX(1);
+  }
+
+  25% {
+    transform: translate(-40%, -55%) scaleX(1);
+  }
+
+  50% {
+    transform: translate(-50%, -50%) scaleX(-1);
+  }
+
+  75% {
+    transform: translate(-60%, -45%) scaleX(-1);
+  }
+}
+
+.loader-text {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.loader-sub {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+
+.loader-bar {
+  width: 240px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 2px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.loader-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--ocean-glow), var(--ocean-biolum));
+  border-radius: 2px;
+  transition: width 0.3s ease;
+  box-shadow: 0 0 12px var(--ocean-glow);
+}
+
+/* ===== SCROLL CONTAINER ===== */
+#scroll-container {
+  position: relative;
+  z-index: 2;
+}
+
+/* ===== SECTIONS ===== */
+.section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 100px 60px;
+}
+
+/* Subtle depth separator between sections */
+.section::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(0, 229, 255, 0.08) 20%,
+      rgba(0, 229, 255, 0.15) 50%,
+      rgba(0, 229, 255, 0.08) 80%,
+      transparent);
+}
+
+.section-inner {
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Split Layout — content on one side, fish area on other */
+.split-layout {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.split-left .content-side {
+  order: 1;
+}
+
+.split-left .fish-side {
+  order: 2;
+}
+
+.split-right .content-side {
+  order: 2;
+}
+
+.split-right .fish-side {
+  order: 1;
+}
+
+.content-side {
+  flex: 0 0 55%;
+  max-width: 55%;
+  z-index: 3;
+}
+
+.fish-side {
+  flex: 1;
+  min-height: 400px;
+}
+
+/* Hero specific split */
+.hero-layout {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.hero-layout .content-side {
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+
+.hero-layout .fish-side {
+  flex: 1;
+}
+
+/* Section Headers */
+.section-label {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ocean-glow);
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 40px;
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+.center-label,
+.center-title {
+  text-align: center;
+}
+
+.glow-text {
+  background: linear-gradient(135deg, var(--ocean-glow), var(--ocean-biolum));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 20px rgba(0, 229, 255, 0.3));
+}
+
+/* ===== HERO SECTION ===== */
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(16px);
+  padding: 10px 22px;
+  border-radius: 50px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--ocean-glow);
+  letter-spacing: 1px;
+  width: fit-content;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ocean-biolum);
+  animation: pulse 2s ease-in-out infinite;
+  box-shadow: 0 0 10px var(--ocean-biolum);
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.5;
+    transform: scale(0.8);
+  }
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 5.5vw, 5rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -1px;
+}
+
+.hero-line {
+  display: block;
+  opacity: 0;
+  transform: translateY(50px);
+}
+
+.line-1 {
+  font-size: 0.5em;
+  font-weight: 400;
+  color: var(--text-secondary);
+  letter-spacing: 2px;
+}
+
+.line-2 {
+  font-size: 1em;
+}
+
+.line-3 {
+  font-size: 0.55em;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.amp {
+  color: var(--ocean-coral);
+  font-style: italic;
+}
+
+.hero-subtitle {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  max-width: 480px;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.hero-cta {
+  display: flex;
+  gap: 14px;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 30px;
+  border-radius: 12px;
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.btn:hover::before {
+  opacity: 1;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--ocean-glow) 0%, var(--ocean-surface) 100%);
+  color: var(--ocean-darkest);
+  box-shadow: 0 4px 20px rgba(0, 229, 255, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 40px rgba(0, 229, 255, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.btn-ghost {
+  background: rgba(0, 229, 255, 0.06);
+  color: var(--text-primary);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(6px);
+}
+
+.btn-ghost:hover {
+  border-color: var(--ocean-glow);
+  color: var(--ocean-glow);
+  transform: translateY(-3px);
+  background: rgba(0, 229, 255, 0.1);
+}
+
+.btn-sm {
+  padding: 8px 18px;
+  font-size: 0.78rem;
+  border-radius: 8px;
+}
+
+.btn-submit {
+  width: 100%;
+  justify-content: center;
+  padding: 16px;
+  border-radius: 14px;
+  font-size: 0.95rem;
+}
+
+/* ===== SCROLL INDICATOR ===== */
+.scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+}
+
+.scroll-line {
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(to bottom, transparent, var(--ocean-glow), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+
+  0%,
+  100% {
+    opacity: 0.3;
+    height: 60px;
+  }
+
+  50% {
+    opacity: 1;
+    height: 80px;
+  }
+}
+
+.scroll-indicator span {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+/* ===== GLASS CARD ===== */
+.glass-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 36px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.3), transparent);
+}
+
+/* Underwater shimmer on glass cards */
+.glass-card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg,
+      transparent 40%,
+      rgba(0, 229, 255, 0.03) 45%,
+      rgba(0, 229, 255, 0.05) 50%,
+      rgba(0, 229, 255, 0.03) 55%,
+      transparent 60%);
+  animation: underwaterShimmer 6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes underwaterShimmer {
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  }
+
+  100% {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+  }
+}
+
+.glass-card:hover {
+  border-color: var(--glass-hover);
+  box-shadow: 0 8px 50px rgba(0, 229, 255, 0.08),
+    0 0 0 1px rgba(0, 229, 255, 0.05);
+  transform: translateY(-4px);
+}
+
+/* ===== ABOUT SECTION ===== */
+.about-card {
+  margin-bottom: 32px;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.about-text {
+  font-size: 1rem;
+  line-height: 1.9;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+
+.about-text:last-child {
+  margin-bottom: 0;
+}
+
+.stats-row {
+  display: flex;
+  gap: 20px;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.stat-item {
+  flex: 1;
+  text-align: center;
+  padding: 20px 12px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 14px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-item::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--ocean-glow), var(--ocean-biolum));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.stat-item:hover {
+  border-color: var(--glass-hover);
+  transform: translateY(-3px);
+}
+
+.stat-item:hover::before {
+  opacity: 1;
+}
+
+.stat-number {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--ocean-glow), var(--ocean-biolum));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 500;
+}
+
+/* ===== SKILLS SECTION — OCEAN ORB GRID ===== */
+
+/* Depth Tabs */
+.depth-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 50px;
+  flex-wrap: wrap;
+}
+
+.depth-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 24px;
+  border-radius: 50px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  color: var(--text-secondary);
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.35s ease;
+  letter-spacing: 0.5px;
+}
+
+.depth-tab:hover {
+  border-color: var(--ocean-glow);
+  color: var(--ocean-glow);
+  background: rgba(0, 229, 255, 0.08);
+}
+
+.depth-tab.active {
+  background: linear-gradient(135deg, rgba(0, 229, 255, 0.15), rgba(0, 255, 200, 0.1));
+  border-color: var(--ocean-glow);
+  color: var(--ocean-glow);
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.15);
+}
+
+.tab-icon {
+  font-size: 1rem;
+}
+
+/* Skills Ocean Grid */
+.skills-ocean-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 30px;
+  max-width: 1000px;
+  margin: 0 auto;
+  justify-items: center;
+}
+
+/* Individual Skill Orb */
+.skill-orb {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  transform: scale(0.7) translateY(20px);
+}
+
+.skill-orb.visible {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+.skill-orb.filtered-out {
+  opacity: 0 !important;
+  transform: scale(0.5) !important;
+  pointer-events: none;
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.skill-orb:hover {
+  transform: scale(1.1) translateY(-5px);
+}
+
+.orb-ring {
+  position: relative;
+  width: 110px;
+  height: 110px;
+}
+
+.orb-ring svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.orb-track {
+  fill: none;
+  stroke: rgba(0, 229, 255, 0.08);
+  stroke-width: 4;
+}
+
+.orb-fill {
+  fill: none;
+  stroke: url(#orb-gradient);
+  stroke: var(--ocean-glow);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-dasharray: 326.73;
+  stroke-dashoffset: calc(326.73 - (326.73 * var(--pct) / 100));
+  transition: stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: drop-shadow(0 0 6px rgba(0, 229, 255, 0.4));
+}
+
+.orb-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.orb-icon {
+  font-size: 1.6rem;
+  transition: transform 0.3s ease;
+}
+
+.skill-orb:hover .orb-icon {
+  transform: scale(1.2);
+}
+
+.orb-value {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--ocean-glow);
+}
+
+.orb-label {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-align: center;
+  letter-spacing: 0.5px;
+  transition: color 0.3s ease;
+}
+
+.skill-orb:hover .orb-label {
+  color: var(--ocean-glow);
+}
+
+/* ===== PROJECTS SECTION — BENTO GRID ===== */
+.section-full .section-inner {
+  max-width: 1400px;
+}
+
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+/* Base bento card */
+.bento-card {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  min-height: 320px;
+  padding: 0;
+  opacity: 0;
+  transform: translateY(30px) scale(0.95);
+}
+
+.bento-card:hover {
+  transform: translateY(-6px) scale(1.01) !important;
+  box-shadow: 0 20px 60px rgba(0, 229, 255, 0.12),
+    0 0 0 1px rgba(0, 229, 255, 0.1);
+}
+
+/* Featured card spans 2 cols */
+.bento-featured {
+  grid-column: span 2;
+  min-height: 380px;
+}
+
+/* Wide card spans 2 cols, horizontal layout */
+.bento-wide {
+  grid-column: span 2;
+  min-height: 260px;
+}
+
+/* Bento background glow */
+.bento-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.bento-bg .bento-glow {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  top: -40px;
+  right: -40px;
+  background: radial-gradient(circle, rgba(0, 229, 255, 0.12) 0%, transparent 70%);
+  animation: glowPulse 4s ease-in-out infinite;
+}
+
+.bento-glow.glow-purple {
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.12) 0%, transparent 70%);
+}
+
+.bento-glow.glow-coral {
+  background: radial-gradient(circle, rgba(255, 107, 157, 0.12) 0%, transparent 70%);
+}
+
+.bento-glow.glow-teal {
+  background: radial-gradient(circle, rgba(20, 184, 166, 0.12) 0%, transparent 70%);
+}
+
+.bento-glow.glow-gold {
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.12) 0%, transparent 70%);
+}
+
+.bento-glow.glow-emerald {
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, transparent 70%);
+}
+
+@keyframes glowPulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+
+  50% {
+    transform: scale(1.3);
+    opacity: 1;
+  }
+}
+
+/* Bento content */
+.bento-content {
+  position: relative;
+  z-index: 1;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.bento-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.bento-number {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: rgba(0, 229, 255, 0.08);
+  line-height: 1;
+}
+
+.bento-emoji {
+  font-size: 3rem;
+  margin-bottom: 16px;
+  transition: transform 0.4s ease;
+}
+
+.bento-card:hover .bento-emoji {
+  transform: scale(1.15) rotate(5deg);
+}
+
+.bento-title {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--text-primary);
+}
+
+.bento-desc {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 16px;
+  flex: 1;
+}
+
+/* Horizontal layout for wide card */
+.bento-horizontal {
+  flex-direction: row;
+  align-items: center;
+  gap: 30px;
+}
+
+.bento-h-left {
+  flex: 0 0 auto;
+  text-align: center;
+}
+
+.bento-h-left .bento-emoji {
+  font-size: 4rem;
+}
+
+.bento-h-right {
+  flex: 1;
+}
+
+/* Project tags */
+.project-tag {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  background: rgba(0, 229, 255, 0.1);
+  color: var(--ocean-glow);
+  border: 1px solid rgba(0, 229, 255, 0.15);
+}
+
+.tag-purple {
+  background: rgba(168, 85, 247, 0.1);
+  color: var(--ocean-purple);
+  border-color: rgba(168, 85, 247, 0.15);
+}
+
+.tag-coral {
+  background: rgba(255, 107, 157, 0.1);
+  color: var(--ocean-coral);
+  border-color: rgba(255, 107, 157, 0.15);
+}
+
+.tag-teal {
+  background: rgba(20, 184, 166, 0.1);
+  color: var(--ocean-teal);
+  border-color: rgba(20, 184, 166, 0.15);
+}
+
+.tag-gold {
+  background: rgba(255, 215, 0, 0.1);
+  color: var(--ocean-gold);
+  border-color: rgba(255, 215, 0, 0.15);
+}
+
+.tag-emerald {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--ocean-emerald);
+  border-color: rgba(16, 185, 129, 0.15);
+}
+
+.project-tech {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.project-tech span {
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  background: rgba(0, 229, 255, 0.06);
+  color: var(--ocean-glow);
+  border: 1px solid rgba(0, 229, 255, 0.1);
+}
+
+.project-links {
+  display: flex;
+  gap: 8px;
+}
+
+/* ===== CONTACT SECTION ===== */
+.contact-card {
+  margin-bottom: 24px;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.contact-intro {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+  letter-spacing: 0.5px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 14px 18px;
+  background: rgba(3, 30, 50, 0.6);
+  border: 1px solid rgba(0, 229, 255, 0.08);
+  border-radius: 10px;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  outline: none;
+  transition: all 0.3s ease;
+  resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--ocean-glow);
+  box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.08),
+    0 0 20px rgba(0, 229, 255, 0.06);
+  background: rgba(3, 30, 50, 0.8);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: var(--text-muted);
+}
+
+.social-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.social-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 50px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+}
+
+.social-pill:hover {
+  border-color: var(--ocean-glow);
+  color: var(--ocean-glow);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 229, 255, 0.1);
+}
+
+.social-pill span {
+  font-size: 1.1rem;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  position: relative;
+  z-index: 2;
+  border-top: 1px solid var(--glass-border);
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(to bottom, rgba(0, 229, 255, 0.02), transparent);
+  pointer-events: none;
+}
+
+.footer-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 30px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer p {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.footer-links {
+  display: flex;
+  gap: 24px;
+}
+
+.footer-links a {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: var(--ocean-glow);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .section {
+    padding: 80px 30px;
+  }
+
+  .split-layout {
+    flex-direction: column;
+  }
+
+  .split-right .fish-side {
+    order: -1;
+  }
+
+  .content-side,
+  .hero-layout .content-side {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+
+  .fish-side {
+    min-height: 200px;
+  }
+
+  .hero-layout {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero-content {
+    align-items: center;
+  }
+
+  .hero-badge {
+    margin: 0 auto;
+  }
+
+  .hero-subtitle {
+    margin: 0 auto;
+  }
+
+  .hero-cta {
+    justify-content: center;
+  }
+
+  .projects-carousel {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .stats-row {
+    flex-wrap: wrap;
+  }
+
+  .stat-item {
+    flex: 1 1 calc(50% - 10px);
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .section {
+    padding: 60px 16px;
+  }
+
+  .projects-carousel {
+    grid-template-columns: 1fr;
+    max-width: 500px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-row {
+    gap: 10px;
+  }
+
+  .footer-inner {
+    padding: 20px 16px;
+  }
+
+  /* Reduce bubbles on mobile for performance */
+  .bubble-9,
+  .bubble-10,
+  .bubble-11,
+  .bubble-12 {
+    display: none;
+  }
+
+  .particle-6,
+  .particle-7,
+  .particle-8 {
+    display: none;
+  }
+}
+===== src/App.jsx =====
+
+import React, { useState, useEffect } from 'react';
+import Loader from './components/Loader';
+import OceanBackground from './components/OceanBackground';
+import UnderwaterFX from './components/UnderwaterFX';
+import OceanCanvas from './components/OceanCanvas';
+import Hero from './components/Hero';
+import About from './components/About';
+import Skills from './components/Skills';
+import Projects from './components/Projects';
+import Contact from './components/Contact';
+import Footer from './components/Footer';
+import useScrollAnimations from './hooks/useScrollAnimations';
+
+function App() {
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const timer = setTimeout(() => setLoading(false), 1500);
+        return () => clearTimeout(timer);
+    }, []);
+
+    useScrollAnimations(loading);
+
+    return (
+        <>
+            <Loader visible={loading} />
+            <OceanBackground />
+            <UnderwaterFX />
+            <OceanCanvas />
+            <div id="scroll-container">
+                <Hero />
+                <About />
+                <Skills />
+                <Projects />
+                <Contact />
+                <Footer />
+            </div>
+        </>
+    );
+}
+
+export default App;
+
+===== index.html =====
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Ocean-themed 3D portfolio — dive into my world of development and design." />
+  <title>Ocean Portfolio | Dive Into My World</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+
+</html>
+===== src/components/OceanCanvas.jsx =====
+
+import { useEffect, useRef } from 'react';
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
+
+const FISH_SECTIONS = {
+    hero: {
+        size: 8,
+        position: { x: 2, y: 2, z: 4 },
+        rotation: -Math.PI / 2 - 0.8,
+        animation: 0,
+    },
+    about: {
+        size: 6,
+        position: { x: -4, y: 1.5, z: 5 },
+        rotation: -Math.PI / 2 + 0.3,
+        animation: 1,
+        switchToAnimation: 0,
+        switchAfterLoops: 1,
+    },
+    skills: {
+        size: 5,
+        position: { x: 3, y: 1, z: 5 },
+        rotation: -Math.PI / 2 - 0.5,
+        animation: 0,
+    },
+    projects: {
+        size: 6,
+        position: { x: 0, y: 0.5, z: 4 },
+        rotation: -Math.PI / 4,
+        animation: 1,
+    },
+    contact: {
+        size: 4,
+        position: { x: -3, y: 1.5, z: 5 },
+        rotation: Math.PI / 2 + 0.3,
+        animation: 0,
+    },
+};
+
+function OceanCanvas() {
+    const canvasRef = useRef(null);
+
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+
+        // Scene
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 200);
+        camera.position.set(0, 2, 12);
+
+        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+        renderer.setClearColor(0x000000, 0);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+        // Lights
+        scene.add(new THREE.AmbientLight(0x4a8aaa, 2.0));
+        const sun = new THREE.DirectionalLight(0xffffff, 2.5);
+        sun.position.set(5, 10, 10);
+        scene.add(sun);
+        const fill = new THREE.DirectionalLight(0x88bbdd, 1.5);
+        fill.position.set(-5, 5, 10);
+        scene.add(fill);
+
+        // Fish state
+        let fishGroup = null;
+        let fishModel = null;
+        let mixer = null;
+        let animations = [];
+        let currentAction = null;
+        let currentSection = 'hero';
+        let currentSize = FISH_SECTIONS.hero.size;
+        let targetSize = FISH_SECTIONS.hero.size;
+        let currentRotation = FISH_SECTIONS.hero.rotation;
+        let targetRotation = FISH_SECTIONS.hero.rotation;
+        let currentPos = { ...FISH_SECTIONS.hero.position };
+        let targetPos = { ...FISH_SECTIONS.hero.position };
+        let animationLoopCount = 0;
+        let waitingToSwitch = false;
+
+        const clock = new THREE.Clock();
+        const loader = new GLTFLoader();
+
+        function playAnimation(index) {
+            if (!mixer || !animations[index]) {
+                console.log(`⚠️ Animation ${index} not found`);
+                return;
+            }
+
+            const clip = animations[index];
+            const filteredClip = clip.clone();
+            filteredClip.tracks = filteredClip.tracks.filter(
+                (track) => !track.name.includes('.position')
+            );
+
+            if (currentAction) {
+                currentAction.fadeOut(0.5);
+            }
+
+            const action = mixer.clipAction(filteredClip);
+            action.reset();
+            action.fadeIn(0.5);
+            action.play();
+
+            currentAction = action;
+            animationLoopCount = 0;
+
+            console.log(`🎬 Playing animation [${index}]: "${clip.name}"`);
+        }
+
+        function onAnimationLoop() {
+            animationLoopCount++;
+            const sectionSettings = FISH_SECTIONS[currentSection];
+
+            if (
+                sectionSettings.switchToAnimation !== undefined &&
+                sectionSettings.switchAfterLoops !== undefined &&
+                animationLoopCount >= sectionSettings.switchAfterLoops &&
+                !waitingToSwitch
+            ) {
+                waitingToSwitch = true;
+                playAnimation(sectionSettings.switchToAnimation);
+                waitingToSwitch = false;
+            }
+        }
+
+        function switchToSection(sectionId) {
+            if (currentSection === sectionId) return;
+
+            currentSection = sectionId;
+            const settings = FISH_SECTIONS[sectionId];
+            if (!settings) return;
+
+            console.log(`📍 Entering section: ${sectionId}`);
+
+            targetPos = { ...settings.position };
+            targetSize = settings.size;
+            targetRotation = settings.rotation;
+
+            animationLoopCount = 0;
+            waitingToSwitch = false;
+            playAnimation(settings.animation);
+        }
+
+        function setupScrollTriggers() {
+            Object.keys(FISH_SECTIONS).forEach((id) => {
+                ScrollTrigger.create({
+                    trigger: '#' + id,
+                    start: 'top center',
+                    end: 'bottom center',
+                    onEnter: () => switchToSection(id),
+                    onEnterBack: () => switchToSection(id),
+                });
+            });
+        }
+
+        // Load main fish
+        loader.load(
+            '/glb_files/main_fish.glb',
+            (gltf) => {
+                fishModel = gltf.scene;
+
+                const box = new THREE.Box3().setFromObject(fishModel);
+                const size = box.getSize(new THREE.Vector3());
+                const maxDim = Math.max(size.x, size.y, size.z);
+
+                fishModel.userData.originalMaxDim = maxDim;
+
+                const scale = FISH_SECTIONS.hero.size / maxDim;
+                fishModel.scale.setScalar(scale);
+
+                const center = box.getCenter(new THREE.Vector3());
+                fishModel.userData.centerOffset = {
+                    x: -center.x,
+                    y: -center.y,
+                    z: -center.z,
+                };
+
+                fishModel.position.set(
+                    fishModel.userData.centerOffset.x * scale,
+                    fishModel.userData.centerOffset.y * scale,
+                    fishModel.userData.centerOffset.z * scale
+                );
+
+                fishModel.rotation.y = FISH_SECTIONS.hero.rotation;
+
+                fishModel.traverse((child) => {
+                    if (child.isMesh && child.material) {
+                        child.material.envMapIntensity = 1.5;
+                        if (child.material.emissive) {
+                            child.material.emissive.set(0x224466);
+                            child.material.emissiveIntensity = 0.2;
+                        }
+                        child.material.needsUpdate = true;
+                    }
+                });
+
+                fishGroup = new THREE.Group();
+                fishGroup.add(fishModel);
+                fishGroup.position.set(
+                    FISH_SECTIONS.hero.position.x,
+                    FISH_SECTIONS.hero.position.y,
+                    FISH_SECTIONS.hero.position.z
+                );
+                scene.add(fishGroup);
+
+                console.log('✅ Main fish loaded');
+
+                animations = gltf.animations;
+                console.log(`📽️ Main fish has ${animations.length} animations`);
+
+                mixer = new THREE.AnimationMixer(fishModel);
+                mixer.addEventListener('loop', onAnimationLoop);
+                playAnimation(FISH_SECTIONS.hero.animation);
+
+                setupScrollTriggers();
+            },
+            undefined,
+            (err) => console.error('❌ Main fish error:', err)
+        );
+
+        // Animation loop
+        let animFrameId;
+        function animate() {
+            animFrameId = requestAnimationFrame(animate);
+            const delta = clock.getDelta();
+
+            if (mixer) {
+                mixer.update(delta);
+            }
+
+            if (fishGroup && fishModel) {
+                const smooth = 0.02;
+                const sizeSmoothness = 0.03;
+
+                currentPos.x += (targetPos.x - currentPos.x) * smooth;
+                currentPos.y += (targetPos.y - currentPos.y) * smooth;
+                currentPos.z += (targetPos.z - currentPos.z) * smooth;
+                fishGroup.position.set(currentPos.x, currentPos.y, currentPos.z);
+
+                currentSize += (targetSize - currentSize) * sizeSmoothness;
+                const newScale = currentSize / fishModel.userData.originalMaxDim;
+                fishModel.scale.setScalar(newScale);
+
+                fishModel.position.set(
+                    fishModel.userData.centerOffset.x * newScale,
+                    fishModel.userData.centerOffset.y * newScale,
+                    fishModel.userData.centerOffset.z * newScale
+                );
+
+                currentRotation += (targetRotation - currentRotation) * smooth;
+                fishModel.rotation.y = currentRotation;
+
+                const movingLeft = targetPos.x < currentPos.x - 0.1;
+                const movingRight = targetPos.x > currentPos.x + 0.1;
+
+                let turnAmount = 0;
+                if (movingLeft) turnAmount = 0.1;
+                else if (movingRight) turnAmount = -0.1;
+
+                fishGroup.rotation.y += (turnAmount - fishGroup.rotation.y) * smooth;
+            }
+
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Resize handler
+        const handleResize = () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        };
+        window.addEventListener('resize', handleResize);
+
+        console.log('🌊 Portfolio Ready - Main Fish Only');
+
+        // Cleanup
+        return () => {
+            cancelAnimationFrame(animFrameId);
+            window.removeEventListener('resize', handleResize);
+            renderer.dispose();
+            ScrollTrigger.getAll().forEach((st) => st.kill());
+        };
+    }, []);
+
+    return <canvas id="ocean-canvas" ref={canvasRef}></canvas>;
+}
+
+export default OceanCanvas;

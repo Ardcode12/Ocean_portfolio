@@ -1,0 +1,271 @@
+/* ===== SKILLS SECTION — CIRCULAR LAYOUT ===== */
+
+/* ── Depth Tabs ── */
+.depth-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.depth-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 24px;
+    border-radius: 50px;
+    border: 1px solid var(--glass-border);
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    color: var(--text-secondary);
+    font-family: var(--font-display);
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.35s ease;
+    letter-spacing: 0.5px;
+}
+
+.depth-tab:hover {
+    border-color: var(--ocean-glow);
+    color: var(--ocean-glow);
+    background: rgba(0, 229, 255, 0.08);
+}
+
+.depth-tab.active {
+    background: linear-gradient(135deg, rgba(0, 229, 255, 0.15), rgba(0, 255, 200, 0.1));
+    border-color: var(--ocean-glow);
+    color: var(--ocean-glow);
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.15);
+}
+
+.tab-icon {
+    font-size: 1rem;
+}
+
+/* ── Split layout ── */
+.skills-layout {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-top: 0;
+}
+
+.skills-circle-side {
+    flex: 0 0 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.skills-fish-side {
+    flex: 1;
+    min-height: 500px;
+}
+
+/* ── Circle wrapper ── */
+.skills-circle-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    position: relative;
+}
+
+.skills-circle {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* ── Orbit ring ── */
+.orbit-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 229, 255, 0.15);
+    pointer-events: none;
+    box-shadow: 
+        0 0 10px rgba(0, 229, 255, 0.05),
+        inset 0 0 10px rgba(0, 229, 255, 0.03);
+}
+
+/* Glowing dots on orbit ring */
+.orbit-ring::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--ocean-glow);
+    box-shadow: 0 0 12px var(--ocean-glow), 0 0 4px var(--ocean-glow);
+    transform: translateX(-50%);
+}
+
+.orbit-ring::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--ocean-biolum);
+    box-shadow: 0 0 10px var(--ocean-biolum);
+    transform: translateX(-50%);
+}
+
+/* ── Octo model container ── */
+.octo-model-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.octo-model-container canvas {
+    display: block;
+}
+
+/* ── Skill orbs — NO transitions on position ── */
+.skill-orb-positioned {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    z-index: 3;
+    /* ★ NO transition on left/top — prevents lag/shrinking */
+}
+
+.skill-orb-positioned:hover {
+    z-index: 10;
+}
+
+/* ── Orb ring ── */
+.orb-ring {
+    position: relative;
+    width: 88px;
+    height: 88px;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.skill-orb-positioned:hover .orb-ring {
+    transform: scale(1.15);
+    filter: drop-shadow(0 0 14px rgba(0, 229, 255, 0.4));
+}
+
+.orb-ring svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.orb-track {
+    fill: none;
+    stroke: rgba(0, 229, 255, 0.1);
+    stroke-width: 4;
+}
+
+.orb-fill {
+    fill: none;
+    stroke: var(--ocean-glow);
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-dasharray: 326.73;
+    stroke-dashoffset: calc(326.73 - (326.73 * var(--pct) / 100));
+    transition: stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: drop-shadow(0 0 6px rgba(0, 229, 255, 0.4));
+}
+
+.orb-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.orb-icon {
+    font-size: 1.4rem;
+    transition: transform 0.3s ease;
+}
+
+.skill-orb-positioned:hover .orb-icon {
+    transform: scale(1.2);
+}
+
+.orb-value {
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--ocean-glow);
+}
+
+.orb-label {
+    font-family: var(--font-display);
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-align: center;
+    letter-spacing: 0.5px;
+    transition: color 0.3s ease;
+    white-space: nowrap;
+    max-width: 90px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.skill-orb-positioned:hover .orb-label {
+    color: var(--ocean-glow);
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+    .skills-layout {
+        flex-direction: column;
+    }
+
+    .skills-circle-side {
+        flex: 1 1 100%;
+    }
+
+    .skills-fish-side {
+        min-height: 250px;
+    }
+
+    .skills-circle-wrapper {
+        transform: scale(0.8);
+        transform-origin: center center;
+    }
+}
+
+@media (max-width: 600px) {
+    .skills-circle-wrapper {
+        transform: scale(0.5);
+        transform-origin: center center;
+    }
+
+    .skills-fish-side {
+        min-height: 200px;
+    }
+
+    .depth-tabs {
+        gap: 4px;
+    }
+
+    .depth-tab {
+        padding: 8px 16px;
+        font-size: 0.75rem;
+    }
+}

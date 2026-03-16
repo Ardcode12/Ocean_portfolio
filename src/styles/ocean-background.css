@@ -1,0 +1,52 @@
+/* ===== OCEAN VIDEO BACKGROUND ===== */
+#ocean-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    overflow: hidden;
+}
+
+#ocean-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    opacity: 0.4;
+    filter: brightness(0.45) saturate(1.6) hue-rotate(-15deg);
+}
+
+.ocean-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse at 30% 20%, rgba(0, 229, 255, 0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 80%, rgba(168, 85, 247, 0.04) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(0, 255, 200, 0.03) 0%, transparent 60%);
+    z-index: 1;
+}
+
+.ocean-gradient-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 250px;
+    background: linear-gradient(to bottom, var(--ocean-darkest) 0%, transparent 100%);
+    z-index: 2;
+}
+
+.ocean-gradient-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 250px;
+    background: linear-gradient(to top, var(--ocean-darkest) 0%, transparent 100%);
+    z-index: 2;
+}
