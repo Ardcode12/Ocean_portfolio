@@ -60,7 +60,7 @@ const ACHIEVEMENTS = [
 // ╚═══════════════════════════════════════════════════════════════╝
 export const ACHIEVEMENT_FISH_POSITIONS = [
     { size: 5, position: { x: 3, y: 1.5, z: 6 }, rotation: -Math.PI / 2 - 0.9, animation: 0 },
-    { size: 5, position: { x: 3, y: 1.5, z: 6 }, rotation: -Math.PI / 2 - 0.9, animation: 0 },
+    { size: 5, position: { x: 3, y: 1.5, z: 6 }, rotation: -Math.PI / 2 - 0.9, animation: 2 },
     { size: 5, position: { x: 3, y: 1.5, z: 6 }, rotation: -Math.PI / 2 - 0.9, animation: 0 },
     { size: 5, position: { x: 3, y: 1.5, z: 6 }, rotation: -Math.PI / 2 - 0.9, animation: 0 },
     { size: 5, position: { x: 3, y: 1.5, z: 6 }, rotation: -Math.PI / 2 - 0.9, animation: 0 },

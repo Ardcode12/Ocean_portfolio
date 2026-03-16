@@ -218,11 +218,13 @@ function OceanCanvas() {
             playAnimation(settings.animation);
         }
 
-        // ★ NEW: Switch fish position based on which achievement is in view
+        // ★ Switch fish position based on which achievement is in view
+        // Animation continues playing in sequence — only starts on first entry
         function switchToAchievement(achievementIndex) {
             if (achievementIndex < 0 || achievementIndex >= ACHIEVEMENT_FISH_POSITIONS.length) return;
             if (currentSection === 'achievements' && currentAchievementIndex === achievementIndex) return;
 
+            const wasInAchievements = currentSection === 'achievements';
             currentSection = 'achievements';
             currentAchievementIndex = achievementIndex;
 
@@ -235,12 +237,16 @@ function OceanCanvas() {
             }
 
             targetPos = pos;
-            targetSize = getIsMobile() ? 3.5 : settings.size; // scale down on mobile somewhat if desired
+            targetSize = getIsMobile() ? 3.5 : settings.size;
             targetRotation = getIsMobile() ? -Math.PI / 2 : settings.rotation;
 
-            animationLoopCount = 0;
-            waitingToSwitch = false;
-            playAnimation(settings.animation);
+            // Only start the animation when first entering achievements section
+            // Let it continue naturally as user scrolls through individual achievements
+            if (!wasInAchievements) {
+                animationLoopCount = 0;
+                waitingToSwitch = false;
+                playAnimation(settings.animation);
+            }
         }
 
         function setupScrollTriggers() {
