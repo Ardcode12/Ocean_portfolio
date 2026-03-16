@@ -80,9 +80,8 @@ function Navbar() {
                 <div className="nav__inner">
                     {/* Logo */}
                     <button className="nav__logo" onClick={() => scrollTo('hero')}>
-                        <span className="nav__logo-icon">🐠</span>
                         <span className="nav__logo-text">
-                            Ocean<span className="nav__logo-accent">Port</span>
+                            Arnald<span className="nav__logo-accent">.dev</span>
                         </span>
                     </button>
 
@@ -125,9 +124,8 @@ function Navbar() {
                 <div className="nav__mobile-content">
                     {/* Mobile logo */}
                     <div className="nav__mobile-header">
-                        <span className="nav__logo-icon">🐠</span>
                         <span className="nav__logo-text">
-                            Ocean<span className="nav__logo-accent">Port</span>
+                            Arnald<span className="nav__logo-accent">.dev</span>
                         </span>
                     </div>
 

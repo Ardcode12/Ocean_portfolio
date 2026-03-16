@@ -14,7 +14,7 @@ const PROJECTS = [
     {
         id: 1,
         title: 'Talent Tracker',
-        description: 'A linkedin like Platform for sports persons and assessment models for training videos.Which increase the opurcunities for the sporsts person and the coaches can  reqcruit them ',
+        description: 'A LinkedIn-like platform designed specifically for sports persons to showcase their talent, achievements, and performance.It includes assessment models that analyze training videos to evaluate skills and track improvement.The platform helps athletes gain better visibility and access to career opportunities.Coaches and recruiters can easily discover, assess, and connect with potential talent.Overall, it creates a smart ecosystem that supports sports career growth and efficient recruitment.',
         tech: ['React-native', 'Python', 'postgresql'],
         color: '#00e5ff',
         links: { live: '#', code: '#' },
@@ -30,7 +30,7 @@ const PROJECTS = [
     {
         id: 3,
         title: 'Accident Auto Report',
-        description: 'Machine learning system that analyzes camera footage to detect accidents , track accident and Automatically call tha ambulance nearby and also have the volunteer system.',
+        description: 'A machine learning system that analyzes live camera footage to detect road accidents in real time.It can identify and track accident situations quickly for faster emergency response.The system automatically alerts the nearest ambulance service with the accident location.It also includes a volunteer support system to provide immediate local assistance when needed.Overall, it helps save lives by improving accident detection, response speed, and community support.',
         tech: ['React-native', 'Python', 'Tensorflow', 'Postgresql'],
         color: '#10b981',
         links: { live: '#', code: '#' },
@@ -46,7 +46,7 @@ const PROJECTS = [
     {
         id: 5,
         title: 'Change Wave',
-        description: 'A platform in which campains can be created and anounced and people can participate in it and learn study modules and gain certificates.',
+        description: 'A platform where campaigns can be created, announced, and managed effectively.Users can participate in campaigns, engage in activities, and track their progress.The platform also provides study modules to support learning and skill development.Participants can complete courses and assessments within the system.Upon successful completion, they can earn certificates to showcase their achievements.',
         tech: ['Html', 'Css','Node.js', 'MongoDB',],
         color: '#ec4899',
         links: { live: '#', code: '#' },
@@ -305,19 +305,6 @@ function ProjectRow({ project, model, index, isReversed }) {
                                 {tech}
                             </span>
                         ))}
-                    </div>
-
-                    <div className="project-card-links">
-                        <a
-                            href={project.links.live}
-                            className="btn btn-sm btn-primary"
-                            style={{ background: project.color }}
-                        >
-                            Live Demo
-                        </a>
-                        <a href={project.links.code} className="btn btn-sm btn-ghost">
-                            View Code
-                        </a>
                     </div>
                 </div>
             </div>

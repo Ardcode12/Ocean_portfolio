@@ -1,26 +1,36 @@
 import React, { useState, useEffect, useRef } from 'react';
 import OctoModel from './OctoModel';
 
+const DEVICON = 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons';
+
 const SKILLS_DATA = [
-    { category: 'frontend', skill: 'HTML/CSS', icon: '🏗️', pct: 95 },
-    { category: 'frontend', skill: 'JavaScript', icon: '⚡', pct: 90 },
-    { category: 'frontend', skill: 'React', icon: '⚛️', pct: 85 },
-    { category: 'frontend', skill: 'Three.js', icon: '🎮', pct: 80 },
-   
-    { category: 'backend', skill: 'Node.js', icon: '🟢', pct: 85 },
-    { category: 'backend', skill: 'Python', icon: '🐍', pct: 75 },
-    { category: 'backend', skill: 'MongoDB', icon: '🍃', pct: 80 },
-   
-    { category: 'tools', skill: 'Git', icon: '🔧', pct: 90 },
+    { category: 'frontend', skill: 'HTML', icon: `${DEVICON}/html5/html5-original.svg`, pct: 95 },
+    { category: 'frontend', skill: 'CSS', icon: `${DEVICON}/css3/css3-original.svg`, pct: 92 },
+    { category: 'frontend', skill: 'JavaScript', icon: `${DEVICON}/javascript/javascript-original.svg`, pct: 90 },
+    { category: 'frontend', skill: 'React', icon: `${DEVICON}/react/react-original.svg`, pct: 85 },
+    { category: 'frontend', skill: 'Three.js', icon: `${DEVICON}/threejs/threejs-original-wordmark.svg`, pct: 80 },
+
+    { category: 'backend', skill: 'Node.js', icon: `${DEVICON}/nodejs/nodejs-original.svg`, pct: 85 },
+    { category: 'backend', skill: 'Python', icon: `${DEVICON}/python/python-original.svg`, pct: 75 },
+    { category: 'backend', skill: 'Django', icon: `${DEVICON}/django/django-plain.svg`, pct: 70 },
+    { category: 'backend', skill: 'Flask', icon: `${DEVICON}/flask/flask-original.svg`, pct: 72 },
     
-    
-    { category: 'tools', skill: 'Linux', icon: '🐧', pct: 82 },
+    { category: 'backend', skill: 'PostgreSQL', icon: `${DEVICON}/postgresql/postgresql-original.svg`, pct: 78 },
+    { category: 'backend', skill: 'SQL', icon: `${DEVICON}/azuresqldatabase/azuresqldatabase-original.svg`, pct: 80 },
+    { category: 'backend', skill: 'MongoDB', icon: `${DEVICON}/mongodb/mongodb-original.svg`, pct: 80 },
+
+    { category: 'ml', skill: 'TensorFlow', icon: `${DEVICON}/tensorflow/tensorflow-original.svg`, pct: 70 },
+    { category: 'ml', skill: 'OpenCV', icon: `${DEVICON}/opencv/opencv-original.svg`, pct: 68 },
+
+    { category: 'tools', skill: 'Git', icon: `${DEVICON}/git/git-original.svg`, pct: 90 },
+    { category: 'tools', skill: 'Linux', icon: `${DEVICON}/linux/linux-original.svg`, pct: 82 },
 ];
 
 const TABS = [
     { id: 'all', icon: '🌊', label: 'All' },
     { id: 'frontend', icon: '🐠', label: 'Frontend' },
     { id: 'backend', icon: '🐙', label: 'Backend' },
+    { id: 'ml', icon: '🧠', label: 'ML' },
     { id: 'tools', icon: '⚓', label: 'Tools' },
 ];
 
@@ -202,7 +212,7 @@ function Skills() {
                                                     <circle cx="60" cy="60" r="52" className="orb-fill" style={{ '--pct': s.pct }} />
                                                 </svg>
                                                 <div className="orb-center">
-                                                    <span className="orb-icon">{s.icon}</span>
+                                                    <img className={`orb-icon${['Three.js', 'Linux', 'Django', 'Flask'].includes(s.skill) ? ' dark-icon' : ''}`} src={s.icon} alt={s.skill} />
                                                     <span className="orb-value">{s.pct}%</span>
                                                 </div>
                                             </div>

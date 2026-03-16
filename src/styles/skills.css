@@ -197,8 +197,15 @@
 }
 
 .orb-icon {
-    font-size: 1.4rem;
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
     transition: transform 0.3s ease;
+    filter: drop-shadow(0 0 4px rgba(0, 229, 255, 0.3));
+}
+
+.orb-icon.dark-icon {
+    filter: invert(1) drop-shadow(0 0 4px rgba(0, 229, 255, 0.3));
 }
 
 .skill-orb-positioned:hover .orb-icon {
