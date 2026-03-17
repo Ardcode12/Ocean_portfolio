@@ -40,14 +40,14 @@ const PROJECTS = [
         title: 'Surity Cart',
         description: 'An e-commerce platform that connects brands and Instagram influencers in a secure and trusted environment. The platform is designed to reduce scams by verifying users and ensuring transparent transactions.It builds trust between influencers, sellers, and customers through secure communication and payment systems.',
         tech: ['React', 'Node.js', 'Mongo db',],
-        color: '#f59e0b',   
+        color: '#f59e0b',
         links: { live: '#', code: '#' },
     },
     {
         id: 5,
         title: 'Change Wave',
         description: 'A platform where campaigns can be created, announced, and managed effectively.Users can participate in campaigns, engage in activities, and track their progress.The platform also provides study modules to support learning and skill development.Participants can complete courses and assessments within the system.Upon successful completion, they can earn certificates to showcase their achievements.',
-        tech: ['Html', 'Css','Node.js', 'MongoDB',],
+        tech: ['Html', 'Css', 'Node.js', 'MongoDB',],
         color: '#ec4899',
         links: { live: '#', code: '#' },
     },
@@ -62,7 +62,7 @@ const PROJECT_MODELS = [
         path: '/glb_files/turtle.glb',
         scale: 4,                    // ★ Size: 1.0=small, 2.5=medium, 4.0=large
         rotation: -Math.PI / 2 + 0.9,             // ★ Facing: 0=right, Math.PI=left, Math.PI/2=back
-        position: { x: 0, y: 0, z: 0 }, // ★ Position offset: x=left/right, y=up/down, z=forward/back
+        position: { x: 0.5, y: 0, z: 0 }, // ★ Position offset: x=left/right, y=up/down, z=forward/back
         animationSpeed: 2,           // ★ Animation speed: 0.5=slow, 1.0=normal, 1.5=fast
         floatAmount: 0.1,              // ★ Floating motion: 0=none, 0.1=subtle, 0.3=large
         floatSpeed: 0.8,               // ★ Float speed: 0.5=slow, 1.0=normal
@@ -197,7 +197,7 @@ function ProjectModel({ modelConfig, index }) {
                 model = gltf.scene;
 
                 const isMobile = window.innerWidth <= 768;
-                
+
                 // Use mobile configs if available, otherwise fallback to desktop
                 const finalScale = (isMobile && config.mobileScale !== undefined) ? config.mobileScale : config.scale;
                 const finalPosition = (isMobile && config.mobilePosition !== undefined) ? config.mobilePosition : config.position;
@@ -300,9 +300,71 @@ function ProjectModel({ modelConfig, index }) {
 }
 
 // ╔═══════════════════════════════════════════════════════════════╗
+// ║  PROJECT SOUNDS                                               ║
+// ╚═══════════════════════════════════════════════════════════════╝
+const PROJECT_SOUNDS = [
+    { src: '/sounds/turtle.wav', volume: 0.3 },    // Project 1 (turtle)
+    { src: '', volume: 0.1 },     // Project 2 (shark)
+    { src: '/sounds/shark.wav', volume: 0.6 },     // Project 3 (whale)
+    { src: '/sounds/whale.mp3', volume: 0.6 },     // Project 4 (whale)
+    { src: '', volume: 0.5 },     // Project 5 (shark)
+];
+
+// ╔═══════════════════════════════════════════════════════════════╗
 // ║  PROJECT ROW COMPONENT                                        ║
 // ╚═══════════════════════════════════════════════════════════════╝
 function ProjectRow({ project, model, index, isReversed }) {
+    useEffect(() => {
+        const rowElement = document.getElementById(`project-${index}`);
+        if (!rowElement) return;
+
+        const soundConfig = PROJECT_SOUNDS[index % PROJECT_SOUNDS.length];
+        let audio = null;
+        let hasInteracted = false;
+
+        // Mark as interacted on first scroll
+        const handleFirstScroll = () => {
+            hasInteracted = true;
+            window.removeEventListener('scroll', handleFirstScroll);
+        };
+        window.addEventListener('scroll', handleFirstScroll);
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting && hasInteracted) {
+                        // Only play if a valid file path is provided
+                        if (soundConfig.src && soundConfig.src !== '/sounds/') {
+                            if (!audio) {
+                                audio = new Audio(soundConfig.src);
+                                audio.loop = false; // Only play once, NO LOOPING
+                                audio.volume = soundConfig.volume;
+                            }
+                            // Reset time in case they scroll away and back again to restart the sound effect
+                            audio.currentTime = 0;
+                            audio.play().catch(e => console.log('Project audio failed', e));
+                        }
+                    } else {
+                        if (audio) {
+                            audio.pause();
+                        }
+                    }
+                });
+            },
+            { threshold: 0.5 } // 50% visible
+        );
+
+        observer.observe(rowElement);
+
+        return () => {
+            window.removeEventListener('scroll', handleFirstScroll);
+            observer.disconnect();
+            if (audio) {
+                audio.pause();
+            }
+        };
+    }, [index]);
+
     return (
         <div
             className={`project-row ${isReversed ? 'project-row-reversed' : ''}`}

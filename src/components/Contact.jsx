@@ -17,7 +17,11 @@ function Contact() {
         <section id="contact" className="section">
             <div className="section-inner split-layout split-right">
                 {/* Christ side (LEFT) */}
-                <div className="fish-side" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div className="fish-side" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} onMouseEnter={() => {
+                    const hoverAudio = new Audio('/sounds/hover-bubble.mp3');
+                    hoverAudio.volume = 0.5;
+                    hoverAudio.play().catch(e => console.log('Hover audio failed', e));
+                }}>
                     <ChristModel />
                 </div>
                 {/* Content side (RIGHT) */}

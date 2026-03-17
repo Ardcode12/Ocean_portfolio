@@ -130,6 +130,32 @@ function OctoModel({ size = 680 }) {
         const clock = new THREE.Clock();
         let animFrameId;
 
+        // ── Roar Audio (plays ONCE when skills section is scrolled into view) ──
+        const roarAudio = new Audio('/sounds/roar.mp3');
+        roarAudio.volume = 0.08;
+        roarAudio.loop = false;
+        let hasPlayedRoar = false;
+
+        // IntersectionObserver: play roar once when octo becomes visible
+        const roarObserver = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting && !hasPlayedRoar) {
+                        hasPlayedRoar = true;
+                        // 2-second delay before roar plays
+                        setTimeout(() => {
+                            roarAudio.currentTime = 0;
+                            roarAudio.play().catch(() => null);
+                            console.log('🔊 Roar played (once, after 2s delay)');
+                        }, 1700);
+                        roarObserver.disconnect();
+                    }
+                });
+            },
+            { threshold: 0.3 }
+        );
+        roarObserver.observe(container);
+
         // ══════════════════════════════════════════════════════════════
         // ANIMATION FUNCTIONS
         // ══════════════════════════════════════════════════════════════
@@ -158,6 +184,7 @@ function OctoModel({ size = 680 }) {
             currentAction = newAction;
             loopCount = 0;
             animationStartTime = clock.getElapsedTime();
+
 
             console.log(`🎬 Playing animation [${index}]: "${clip.name}" (duration: ${clip.duration.toFixed(2)}s)`);
         }
@@ -195,6 +222,7 @@ function OctoModel({ size = 680 }) {
         }
 
         function onAnimationFinished() {
+
             if (A.mode === 'sequence' && A.sequenceTiming === 'full') {
                 playNextInSequence();
             } else if (A.mode === 'random' && A.sequenceTiming === 'full') {
@@ -342,6 +370,9 @@ function OctoModel({ size = 680 }) {
         // Cleanup
         return () => {
             cancelAnimationFrame(animFrameId);
+            roarAudio.pause();
+            roarAudio.currentTime = 0;
+            roarObserver.disconnect();
             if (mixer) {
                 mixer.removeEventListener('loop', onAnimationLoop);
                 mixer.removeEventListener('finished', onAnimationFinished);

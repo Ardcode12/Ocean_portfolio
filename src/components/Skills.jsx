@@ -14,7 +14,7 @@ const SKILLS_DATA = [
     { category: 'backend', skill: 'Python', icon: `${DEVICON}/python/python-original.svg`, pct: 75 },
     { category: 'backend', skill: 'Django', icon: `${DEVICON}/django/django-plain.svg`, pct: 70 },
     { category: 'backend', skill: 'Flask', icon: `${DEVICON}/flask/flask-original.svg`, pct: 72 },
-    
+
     { category: 'backend', skill: 'PostgreSQL', icon: `${DEVICON}/postgresql/postgresql-original.svg`, pct: 78 },
     { category: 'backend', skill: 'SQL', icon: `${DEVICON}/azuresqldatabase/azuresqldatabase-original.svg`, pct: 80 },
     { category: 'backend', skill: 'MongoDB', icon: `${DEVICON}/mongodb/mongodb-original.svg`, pct: 80 },
@@ -27,11 +27,11 @@ const SKILLS_DATA = [
 ];
 
 const TABS = [
-    { id: 'all', icon: '🌊', label: 'All' },
-    { id: 'frontend', icon: '🐠', label: 'Frontend' },
-    { id: 'backend', icon: '🐙', label: 'Backend' },
-    { id: 'ml', icon: '🧠', label: 'ML' },
-    { id: 'tools', icon: '⚓', label: 'Tools' },
+    { id: 'all', icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 3h18v18H3z" /><path d="M9 9h6v6H9z" /></svg>, label: 'All' },
+    { id: 'frontend', icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L12 12l3.745 3.745A9.865 9.865 0 0020 12z" /><path d="M4 12c0-4.418 4.03-8 9-8s9 3.582 9 8" /></svg>, label: 'Frontend' },
+    { id: 'backend', icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2" /><line x1="8" y1="21" x2="16" y2="21" /><line x1="12" y1="17" x2="12" y2="21" /></svg>, label: 'Backend' },
+    { id: 'ml', icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="3" /><path d="M12 1v6m0 6v6m11-7h-6m-6 0H1m16.24-3.76l-4.24 4.24m-6-6L2.76 6.24m16.24 11.52l-4.24-4.24m-6 6L2.76 17.76" /></svg>, label: 'ML' },
+    { id: 'tools', icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" /></svg>, label: 'Tools' },
 ];
 
 // ╔═══════════════════════════════════════════════════════════════╗
@@ -124,6 +124,10 @@ function Skills() {
         if (ROTATION_SETTINGS.pauseOnHover) {
             isPausedRef.current = true;
         }
+        // Play hover sound
+        const hoverAudio = new Audio('/sounds/hover-bubble.mp3');
+        hoverAudio.volume = 0.5;
+        hoverAudio.play().catch(e => console.log('Hover audio failed', e));
     };
 
     const handleMouseLeave = () => {
