@@ -1,16 +1,59 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import ChristModel from './ChristModel';
 
-function Contact() {
-    const [submitted, setSubmitted] = useState(false);
+// ╔═══════════════════════════════════════════════════════════════╗
+// ║  ★ WEB3FORMS CONFIG                                           ║
+// ║  Get your FREE access key at: https://web3forms.com           ║
+// ║  1. Go to web3forms.com                                       ║
+// ║  2. Enter YOUR email address                                  ║
+// ║  3. Copy the access key and paste it below                    ║
+// ╚═══════════════════════════════════════════════════════════════╝
+const WEB3FORMS_ACCESS_KEY = 'fa858a75-ed62-4e30-b702-6d81ac74eb6f'; // ★ Replace with your key!
 
-    const handleSubmit = (e) => {
+function Contact() {
+    const [status, setStatus] = useState('idle'); // idle | sending | sent | error
+    const [errorMsg, setErrorMsg] = useState('');
+    const formRef = useRef(null);
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        setSubmitted(true);
-        setTimeout(() => {
-            setSubmitted(false);
-            e.target.reset();
-        }, 3000);
+        setStatus('sending');
+        setErrorMsg('');
+
+        const formData = new FormData(e.target);
+        formData.append('access_key', WEB3FORMS_ACCESS_KEY);
+        formData.append('subject', `Portfolio Contact from ${formData.get('name')}`);
+        formData.append('from_name', 'Ocean Portfolio');
+
+        try {
+            const response = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formData,
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                setStatus('sent');
+                e.target.reset();
+                setTimeout(() => setStatus('idle'), 4000);
+            } else {
+                setStatus('error');
+                setErrorMsg(result.message || 'Something went wrong. Please try again.');
+                setTimeout(() => setStatus('idle'), 4000);
+            }
+        } catch (err) {
+            setStatus('error');
+            setErrorMsg('Network error. Please check your connection and try again.');
+            setTimeout(() => setStatus('idle'), 4000);
+        }
+    };
+
+    const buttonLabel = {
+        idle: 'Send Message',
+        sending: 'Sending...',
+        sent: '✓ Message Sent!',
+        error: 'Failed — Try Again',
     };
 
     return (
@@ -32,26 +75,50 @@ function Contact() {
                     </h2>
                     <div className="glass-card contact-card">
                         <p className="contact-intro">Have a project in mind? Let's create something extraordinary together.</p>
-                        <form id="contact-form" className="contact-form" onSubmit={handleSubmit}>
+                        <form ref={formRef} id="contact-form" className="contact-form" onSubmit={handleSubmit}>
+                            {/* Hidden honeypot for spam protection */}
+                            <input type="hidden" name="botcheck" style={{ display: 'none' }} />
                             <div className="form-row">
                                 <div className="form-group">
                                     <label htmlFor="name">Name</label>
-                                    <input type="text" id="name" placeholder="Arnald " required />
+                                    <input type="text" id="name" name="name" placeholder="Arnald " required />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="email">Email</label>
-                                    <input type="email" id="email" placeholder="arnald@gmail.com" required />
+                                    <input type="email" id="email" name="email" placeholder="arnald@gmail.com" required />
                                 </div>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="message">Message</label>
-                                <textarea id="message" placeholder="Tell me about your project..." rows="4" required></textarea>
+                                <textarea id="message" name="message" placeholder="Tell me about your project..." rows="4" required></textarea>
                             </div>
-                            <button type="submit" className="btn btn-primary btn-submit">
-                                <span>{submitted ? 'Sent!' : 'Send Message'}</span>
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                    <path d="M22 2L11 13M22 2L15 22L11 13M11 13L2 9L22 2" />
-                                </svg>
+
+                            {/* Status messages */}
+                            {status === 'sent' && (
+                                <div className="form-status form-success">
+                                    ✓ Message sent successfully! I'll get back to you shortly.
+                                </div>
+                            )}
+                            {status === 'error' && (
+                                <div className="form-status form-error">
+                                    ✗ {errorMsg}
+                                </div>
+                            )}
+
+                            <button
+                                type="submit"
+                                className={`btn btn-primary btn-submit ${status === 'sending' ? 'btn-loading' : ''} ${status === 'sent' ? 'btn-success' : ''} ${status === 'error' ? 'btn-error' : ''}`}
+                                disabled={status === 'sending'}
+                            >
+                                <span>{buttonLabel[status]}</span>
+                                {status === 'idle' && (
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                        <path d="M22 2L11 13M22 2L15 22L11 13M11 13L2 9L22 2" />
+                                    </svg>
+                                )}
+                                {status === 'sending' && (
+                                    <span className="spinner"></span>
+                                )}
                             </button>
                         </form>
                     </div>
@@ -71,7 +138,7 @@ function Contact() {
                             </span> LinkedIn
                         </a>
 
-                        <a href="ardcode12@gmail.com" className="social-pill">
+                        <a href="mailto:ardcode12@gmail.com" className="social-pill">
                             <span>
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
