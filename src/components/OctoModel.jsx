@@ -20,7 +20,7 @@ const OCTO_SETTINGS = {
     // DIRECTION / FACING
     // ══════════════════════════════════════════════════════════════
     facingDirection: 0,     // Math.PI = front, 0 = back
-                                  // Math.PI/2 = left, -Math.PI/2 = right
+    // Math.PI/2 = left, -Math.PI/2 = right
 
     // ══════════════════════════════════════════════════════════════
     // IDLE MOTION (subtle floating/swaying)
@@ -54,23 +54,33 @@ const OCTO_SETTINGS = {
         // Example: [0, 1, 2] plays animation 0, then 1, then 2, then loops
         // Example: [0, 5, 3, 5] plays 0 → 5 → 3 → 5 → loop
         // Use 'all' to play all animations in order (0 through 17)
-        sequence: [1,2],   // ★ Change this array!
+        sequence: [1,],   // ★ Change this array!
         // sequence: 'all',       // ★ Or use 'all' for all 18 animations
 
         // ── TIMING ──
         speed: 0.6,               // Animation playback speed (0.3 = slow, 1.0 = normal)
-        
+
         // How to handle animation duration in sequence/random mode:
         // 'loop'     = let each animation loop X times before switching
         // 'duration' = play each animation for X seconds before switching
         // 'full'     = play each animation once fully, then switch
         sequenceTiming: 'full',
-        
+
         loopsPerAnimation: 1,     // For 'loop' timing: how many loops before switch
         durationPerAnimation: 5,  // For 'duration' timing: seconds before switch
 
         // ── TRANSITIONS ──
         crossfadeDuration: 0.5,   // Seconds to blend between animations (0 = instant)
+
+        // ── ANIMATION DELAYS ──
+        // Delay (in seconds) before playing specific animation indices
+        delays: {
+            1: 0,     // Animation 1: no delay
+            2: 1,     // Animation 2: 1 second delay
+        },
+
+        // ── LOOP GAPS ──
+        delayBetweenLoops: 3,     // 5 second gap between animation loops
 
         // ── DEBUG ──
         logAnimations: true,      // Log animation names to console on load
@@ -130,31 +140,22 @@ function OctoModel({ size = 680 }) {
         const clock = new THREE.Clock();
         let animFrameId;
 
-        // ── Roar Audio (plays ONCE when skills section is scrolled into view) ──
+        // ── Roar Audio (plays for ALL animations when component is visible) ──
         const roarAudio = new Audio('/sounds/roar.mp3');
         roarAudio.volume = 0.08;
         roarAudio.loop = false;
-        let hasPlayedRoar = false;
+        let isComponentVisible = false;
 
-        // IntersectionObserver: play roar once when octo becomes visible
-        const roarObserver = new IntersectionObserver(
+        // IntersectionObserver: track when OctoModel is visible
+        const visibilityObserver = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
-                    if (entry.isIntersecting && !hasPlayedRoar) {
-                        hasPlayedRoar = true;
-                        // 2-second delay before roar plays
-                        setTimeout(() => {
-                            roarAudio.currentTime = 0;
-                            roarAudio.play().catch(() => null);
-                            console.log('🔊 Roar played (once, after 2s delay)');
-                        }, 1700);
-                        roarObserver.disconnect();
-                    }
+                    isComponentVisible = entry.isIntersecting;
                 });
             },
-            { threshold: 0.3 }
+            { threshold: 0.1 }
         );
-        roarObserver.observe(container);
+        visibilityObserver.observe(container);
 
         // ══════════════════════════════════════════════════════════════
         // ANIMATION FUNCTIONS
@@ -179,14 +180,35 @@ function OctoModel({ size = 680 }) {
             }
 
             newAction.timeScale = A.speed;
-            newAction.play();
 
-            currentAction = newAction;
-            loopCount = 0;
-            animationStartTime = clock.getElapsedTime();
+            // Get delay for this animation (default to 0)
+            const animationDelay = A.delays?.[index] ?? 0;
 
+            // Helper function to start animation and roar simultaneously
+            const startAnimationAndRoar = () => {
+                newAction.play();
+                currentAction = newAction;
+                loopCount = 0;
+                animationStartTime = clock.getElapsedTime();
 
-            console.log(`🎬 Playing animation [${index}]: "${clip.name}" (duration: ${clip.duration.toFixed(2)}s)`);
+                // Play roar sound for EVERY animation start, if component is visible
+                if (isComponentVisible) {
+                    roarAudio.currentTime = 0;
+                    roarAudio.play().catch(() => null);
+                    console.log('🔊 Roar played (synchronized with animation start)');
+                }
+
+                console.log(`🎬 Playing animation [${index}]: "${clip.name}" (duration: ${clip.duration.toFixed(2)}s)`);
+            };
+
+            if (animationDelay > 0) {
+                // If there's a delay, wait before playing both animation and roar
+                console.log(`⏳ Scheduled animation [${index}]: "${clip.name}" with ${animationDelay}s delay`);
+                setTimeout(startAnimationAndRoar, animationDelay * 1000);
+            } else {
+                // Play immediately if no delay
+                startAnimationAndRoar();
+            }
         }
 
         function playNextInSequence() {
@@ -222,11 +244,24 @@ function OctoModel({ size = 680 }) {
         }
 
         function onAnimationFinished() {
-
             if (A.mode === 'sequence' && A.sequenceTiming === 'full') {
-                playNextInSequence();
+                // Add delay between loops
+                if (A.delayBetweenLoops > 0) {
+                    setTimeout(() => {
+                        playNextInSequence();
+                    }, A.delayBetweenLoops * 1000);
+                } else {
+                    playNextInSequence();
+                }
             } else if (A.mode === 'random' && A.sequenceTiming === 'full') {
-                playRandomAnimation();
+                // Add delay between loops
+                if (A.delayBetweenLoops > 0) {
+                    setTimeout(() => {
+                        playRandomAnimation();
+                    }, A.delayBetweenLoops * 1000);
+                } else {
+                    playRandomAnimation();
+                }
             }
         }
 
@@ -372,7 +407,7 @@ function OctoModel({ size = 680 }) {
             cancelAnimationFrame(animFrameId);
             roarAudio.pause();
             roarAudio.currentTime = 0;
-            roarObserver.disconnect();
+            visibilityObserver.disconnect();
             if (mixer) {
                 mixer.removeEventListener('loop', onAnimationLoop);
                 mixer.removeEventListener('finished', onAnimationFinished);
